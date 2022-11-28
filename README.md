@@ -2,7 +2,7 @@ Readme for RPiKeyerTerm software
 
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
-sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase 5-dev
+sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase5-dev
 
 To build from source:
 ````
