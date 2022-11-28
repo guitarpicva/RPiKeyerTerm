@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MacroDialog</class>
+ <widget class="QDialog" name="MacroDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>475</width>
+    <height>485</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QPlainTextEdit" name="macroTextEdit"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QListWidget" name="macroListWidget">
+     <property name="maximumSize">
+      <size>
+       <width>120</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <item>
+      <property name="text">
+       <string>MAC0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC10</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>MAC11</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="saveMacroButton">
+     <property name="text">
+      <string>Save Macro</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="macroLabelLineEdit"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Button Label Text</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="macroHelpLabel">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Macro Text Substitutions
+{CS} = Configured Call Sign
+{DS} = Destination Station Call Sign Selected on Heard List
+{MH} = Configured Maidenhead Grid Reference
+{OP} Operator name typed into the field next to the Heard list.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
