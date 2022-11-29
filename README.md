@@ -1,5 +1,8 @@
 Readme for RPiKeyerTerm software
 
+NOTE: See KeyIt.png for an example of a simple transistor switch to use 
+with the radio's CW key line.
+
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
 sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase5-dev
