@@ -217,7 +217,7 @@ void RPiKeyerTerm::loadMacros()
 {
     QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
     QString text, label, content;
-    for(int i = 0; i < 7; i++)
+    for(int i = 0; i < 12; i++)
     {
         label = s.value("Macros/macro" + QString::number(i) + "Label", "").toString();
         content = s.value("Macros/macro" + QString::number(i) + "Text", "").toString();

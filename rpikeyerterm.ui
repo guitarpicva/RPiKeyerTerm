@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>878</width>
     <height>600</height>
    </rect>
   </property>
@@ -328,7 +328,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>878</width>
      <height>26</height>
     </rect>
    </property>
@@ -356,7 +356,6 @@
    <addaction name="actionMAC9"/>
    <addaction name="actionMAC10"/>
    <addaction name="actionMAC11"/>
-   <addaction name="actionMAC12"/>
    <addaction name="actionConfig"/>
   </widget>
   <action name="actionMAC0">
@@ -417,11 +416,6 @@
   <action name="actionMAC11">
    <property name="text">
     <string>MAC11</string>
-   </property>
-  </action>
-  <action name="actionMAC12">
-   <property name="text">
-    <string>MAC12</string>
    </property>
   </action>
   <action name="actionConfig">
