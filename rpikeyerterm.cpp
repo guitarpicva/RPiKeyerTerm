@@ -284,14 +284,17 @@ void RPiKeyerTerm::on_sendButton_clicked()
     }
 }
 
-
 void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
 {
     if(arg1 < 5) arg1 = 5; // min speed is 5 WPM
     dit = (int) 1200/arg1;
 }
 
-void RPiKeyerTerm::on_pushButton_clicked(bool checked)
-{
 
+void RPiKeyerTerm::on_tuneButton_clicked(bool checked)
+{
+    if(checked)
+        gpiod_line_set_value(line, 1); // key on
+    else
+        gpiod_line_set_value(line, 0); // key off
 }

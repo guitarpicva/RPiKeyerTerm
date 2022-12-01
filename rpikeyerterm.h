@@ -49,10 +49,9 @@ private slots:
     void on_receiveTextClearButton_clicked();
     void loadMacros();
     void on_sendButton_clicked();
-
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
 
-    void on_pushButton_clicked(bool checked);
+    void on_tuneButton_clicked(bool checked);
 
 private:
     Ui::RPiKeyerTerm *ui;

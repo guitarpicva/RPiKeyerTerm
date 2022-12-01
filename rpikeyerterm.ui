@@ -227,7 +227,7 @@
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="tuneButton">
          <property name="text">
           <string>TUNE</string>
          </property>
