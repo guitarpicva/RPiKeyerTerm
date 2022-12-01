@@ -14,6 +14,7 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     // set up the GPIO pin from settings and initialize it and test it
     settings = new QSettings("RPiKeyerTerm.ini", QSettings::IniFormat);
     loadSettings();
+    loadMacros();
     chip = gpiod_chip_open_by_name("gpiochip0");
     line = gpiod_chip_get_line(chip, GPIO21);
     gpiod_line_request_output(line, "keyline", 0); // set to output direction
