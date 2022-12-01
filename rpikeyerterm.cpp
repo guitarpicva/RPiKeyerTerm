@@ -230,11 +230,11 @@ void RPiKeyerTerm::loadMacros()
         case 4: ui->actionMAC4->setText(label);ui->actionMAC4->setToolTip(content);break;
         case 5: ui->actionMAC5->setText(label);ui->actionMAC5->setToolTip(content);break;
         case 6: ui->actionMAC6->setText(label);ui->actionMAC6->setToolTip(content);break;
-        case 7: ui->actionMAC6->setText(label);ui->actionMAC7->setToolTip(content);break;
-        case 8: ui->actionMAC6->setText(label);ui->actionMAC8->setToolTip(content);break;
-        case 9: ui->actionMAC6->setText(label);ui->actionMAC9->setToolTip(content);break;
-        case 10: ui->actionMAC6->setText(label);ui->actionMAC10->setToolTip(content);break;
-        case 11: ui->actionMAC6->setText(label);ui->actionMAC11->setToolTip(content);break;
+        case 7: ui->actionMAC7->setText(label);ui->actionMAC7->setToolTip(content);break;
+        case 8: ui->actionMAC8->setText(label);ui->actionMAC8->setToolTip(content);break;
+        case 9: ui->actionMAC9->setText(label);ui->actionMAC9->setToolTip(content);break;
+        case 10: ui->actionMAC10->setText(label);ui->actionMAC10->setToolTip(content);break;
+        case 11: ui->actionMAC11->setText(label);ui->actionMAC11->setToolTip(content);break;
         }
 
     }
