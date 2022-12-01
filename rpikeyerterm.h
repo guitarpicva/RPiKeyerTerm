@@ -52,6 +52,8 @@ private slots:
 
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
 
+    void on_pushButton_clicked(bool checked);
+
 private:
     Ui::RPiKeyerTerm *ui;
     MacroDialog *md = nullptr;

@@ -290,3 +290,8 @@ void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
     if(arg1 < 5) arg1 = 5; // min speed is 5 WPM
     dit = (int) 1200/arg1;
 }
+
+void RPiKeyerTerm::on_pushButton_clicked(bool checked)
+{
+
+}
