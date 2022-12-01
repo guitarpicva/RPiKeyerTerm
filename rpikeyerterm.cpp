@@ -52,6 +52,7 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
     // We'll build a list of text substitutions for
     // users to use here.
     QString out, tmp;
+    out = toSend.trimmed();
     if(toSend.contains("{")) {
         if(toSend.contains("{CS}")) {
             out = toSend.replace("{CS}", ui->mycallLineEdit->text().trimmed().toUpper());
@@ -69,6 +70,7 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
             tmp = ui->opNameLineEdit->text().trimmed();
             out = toSend.replace("{OP}", tmp);
         }
+
     }
     return out;
 }
@@ -76,9 +78,10 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
 void RPiKeyerTerm::macroTriggered(const int index)
 {
     QString toSend = settings->value("Macros/macro" + QString::number(index) + "Text", "").toString();
+    toSend = resolveTextSubstitutions(toSend);
+            qDebug()<<"Macro:"<<index<<toSend;
     ui->receiveTextArea->moveCursor(QTextCursor::End);
-    ui->sendTextArea->setPlainText(resolveTextSubstitutions(toSend));
-    ui->sendTextArea->moveCursor(QTextCursor::Down);
+    ui->sendTextArea->setPlainText(toSend);
     ui->sendTextArea->setFocus();
 }
 
