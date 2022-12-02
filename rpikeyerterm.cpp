@@ -251,10 +251,16 @@ void RPiKeyerTerm::on_sendButton_clicked()
     const int end = tokey.size(); // so when we pop this doesn't change
     ui->receiveTextArea->moveCursor(QTextCursor::End);
     for(int i = 0; i < end; i++) {
+        if(b_killTx) {
+            b_killTx = false;
+            gpiod_line_set_value(line, 0); // key off
+            break;
+        }
         keystr.clear();
         keychar = tokey.at(i);
         ui->receiveTextArea->insertPlainText(keychar); // echo to rx area
-        qApp->processEvents(QEventLoop::ExcludeUserInputEvents); // only update the text area
+        //qApp->processEvents(QEventLoop::ExcludeUserInputEvents); // only update the text area
+        qApp->processEvents();
         keystr = alphabet[keychar.cell()]; // look up the keying pattern by ASCII char value
         //qDebug()<<"keystr:"<<keystr;
         if(keystr == "") {
