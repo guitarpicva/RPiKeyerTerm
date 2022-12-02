@@ -50,8 +50,8 @@ private slots:
     void loadMacros();
     void on_sendButton_clicked();
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
-
     void on_tuneButton_clicked(bool checked);
+    void on_killTxButton_clicked();
 
 private:
     Ui::RPiKeyerTerm *ui;
@@ -61,6 +61,7 @@ private:
     QString tokey, keystr;
     QChar keychar, kc;
     bool b_keyit = true;
+    bool b_killTx = false;
     const QString SPACE = " ";
     struct gpiod_chip *chip;
     struct gpiod_line *line;    // key line

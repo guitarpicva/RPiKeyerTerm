@@ -302,3 +302,9 @@ void RPiKeyerTerm::on_tuneButton_clicked(bool checked)
     else
         gpiod_line_set_value(line, 0); // key off
 }
+
+void RPiKeyerTerm::on_killTxButton_clicked()
+{
+    b_killTx = true;
+    gpiod_line_set_value(line, 0); // key off
+}
