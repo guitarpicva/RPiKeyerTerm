@@ -53,9 +53,9 @@ private slots:
     void on_actionLOG_triggered(bool checked);
     void on_actionKILL_TX_triggered();
     void on_actionTUNE_triggered(bool checked);
-
     void on_delCallButton_clicked();
-
+    void on_sendCallButton_clicked();
+    void sendText(const QString tokey);
 private:
     Ui::RPiKeyerTerm *ui;
     MacroDialog *md = nullptr;

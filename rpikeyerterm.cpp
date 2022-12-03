@@ -248,10 +248,8 @@ void RPiKeyerTerm::loadMacros()
     }
 }
 
-void RPiKeyerTerm::on_sendButton_clicked()
+void RPiKeyerTerm::sendText(const QString tokey)
 {
-    tokey = ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]")); // no line ends in Morse
-    //tokey = resolveTextSubstitutions(tokey);
     const int end = tokey.size(); // so when we pop this doesn't change
     ui->receiveTextArea->moveCursor(QTextCursor::End);
     ui->receiveTextArea->insertPlainText("\nSENDING: ");
@@ -297,6 +295,14 @@ void RPiKeyerTerm::on_sendButton_clicked()
         }
         QThread::msleep(dit * 3); // wait 3 dit lengths between characters
     }
+
+}
+
+void RPiKeyerTerm::on_sendButton_clicked()
+{
+    auto tokey = ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]")); // no line ends in Morse
+    //tokey = resolveTextSubstitutions(tokey);
+    sendText(tokey);
 }
 
 void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
@@ -327,4 +333,9 @@ void RPiKeyerTerm::on_actionTUNE_triggered(bool checked)
 void RPiKeyerTerm::on_delCallButton_clicked()
 {
     ui->heardListComboBox->removeItem(ui->heardListComboBox->currentIndex());
+}
+
+void RPiKeyerTerm::on_sendCallButton_clicked()
+{
+    sendText(mycall);
 }

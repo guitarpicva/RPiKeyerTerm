@@ -66,7 +66,7 @@
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item row="0" column="0" rowspan="2">
+        <item row="0" column="0" rowspan="3">
          <widget class="QPlainTextEdit" name="sendTextArea">
           <property name="placeholderText">
            <string>Type the text to send and click SEND or Ctrl + Enter</string>
@@ -78,13 +78,13 @@
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>80</height>
+            <height>60</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>80</width>
-            <height>80</height>
+            <height>60</height>
            </size>
           </property>
           <property name="font">
@@ -102,10 +102,17 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="1">
          <widget class="QPushButton" name="sendClearButton">
           <property name="text">
            <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="sendCallButton">
+          <property name="text">
+           <string>Send Call</string>
           </property>
          </widget>
         </item>
