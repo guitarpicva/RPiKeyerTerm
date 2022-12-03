@@ -159,7 +159,8 @@ void RPiKeyerTerm::on_pushButton_2_clicked()
 
 void RPiKeyerTerm::loadSettings()
 {
-    ui->mycallLineEdit->setText(settings->value("mycall", "N0CALL").toString());
+    mycall = settings->value("mycall", "N0CALL").toString();
+    ui->mycallLineEdit->setText(mycall);
     ui->mhGridLineEdit->setText(settings->value("mygrid", "FM00").toString());
     ui->sendingSpeedSpinBox->setValue(settings->value("sendingSpeed", 15).toInt());
     QStringList items = settings->value("heardList", "").toStringList();
@@ -337,5 +338,5 @@ void RPiKeyerTerm::on_delCallButton_clicked()
 
 void RPiKeyerTerm::on_sendCallButton_clicked()
 {
-    sendText(mycall);
+    sendText(ui->mycallLineEdit->text().trimmed().toUpper());
 }
