@@ -20,6 +20,10 @@ private slots:
     void on_saveMacroButton_clicked();
     void on_macroListWidget_clicked(const QModelIndex &index);
 
+    void on_macroListWidget_currentRowChanged(int currentRow);
+
+    void on_macroDialogCloseButton_clicked();
+
 private:
     Ui::MacroDialog *ui;
 

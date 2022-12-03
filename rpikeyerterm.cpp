@@ -163,7 +163,9 @@ void RPiKeyerTerm::loadSettings()
     ui->mhGridLineEdit->setText(settings->value("mygrid", "FM00").toString());
     ui->sendingSpeedSpinBox->setValue(settings->value("sendingSpeed", 15).toInt());
     QStringList items = settings->value("heardList", "").toStringList();
-    ui->heardListComboBox->addItems(items);            
+    ui->heardListComboBox->addItems(items);
+    restoreGeometry(settings->value("geometry", "").toByteArray());
+    restoreState(settings->value("windowState", "").toByteArray());
 }
 
 void RPiKeyerTerm::saveSettings()
@@ -177,6 +179,8 @@ void RPiKeyerTerm::saveSettings()
     }
     items.removeDuplicates();
     settings->setValue("heardList", items);
+    settings->setValue("geometry", saveGeometry());
+    settings->setValue("windowState", saveState());
 }
 
 void RPiKeyerTerm::on_updateClearButton_clicked()
@@ -250,6 +254,7 @@ void RPiKeyerTerm::on_sendButton_clicked()
     //tokey = resolveTextSubstitutions(tokey);
     const int end = tokey.size(); // so when we pop this doesn't change
     ui->receiveTextArea->moveCursor(QTextCursor::End);
+    ui->receiveTextArea->insertPlainText("\nSENDING: ");
     for(int i = 0; i < end; i++) {
         if(b_killTx) {
             b_killTx = false;
@@ -300,8 +305,18 @@ void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
     dit = (int) 1200/arg1;
 }
 
+void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
+{
+    // do log dialog
+}
 
-void RPiKeyerTerm::on_tuneButton_clicked(bool checked)
+void RPiKeyerTerm::on_actionKILL_TX_triggered()
+{
+    b_killTx = true;
+    gpiod_line_set_value(line, 0); // key off
+}
+
+void RPiKeyerTerm::on_actionTUNE_triggered(bool checked)
 {
     if(checked)
         gpiod_line_set_value(line, 1); // key on
@@ -309,8 +324,7 @@ void RPiKeyerTerm::on_tuneButton_clicked(bool checked)
         gpiod_line_set_value(line, 0); // key off
 }
 
-void RPiKeyerTerm::on_killTxButton_clicked()
+void RPiKeyerTerm::on_delCallButton_clicked()
 {
-    b_killTx = true;
-    gpiod_line_set_value(line, 0); // key off
+    ui->heardListComboBox->removeItem(ui->heardListComboBox->currentIndex());
 }

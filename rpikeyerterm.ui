@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>878</width>
-    <height>600</height>
+    <width>809</width>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -146,7 +146,7 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Add your copied text to the recieved text to show the conversation.  Ctrl + U&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
-          <string>Update Conv</string>
+          <string>Update</string>
          </property>
          <property name="shortcut">
           <string>Ctrl+U</string>
@@ -177,58 +177,143 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox_2">
+     <widget class="QGroupBox" name="contactGroupBox">
       <property name="title">
        <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="2">
+       <item row="0" column="10">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
+           <width>3</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="0" column="12">
-        <widget class="QLineEdit" name="mhGridLineEdit">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="delCallButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="toolTip">
-          <string>Maidenhead (or other) grid reference {MH}</string>
+         <property name="minimumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
          </property>
-         <property name="maxLength">
-          <number>6</number>
+         <property name="maximumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>X</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="killTxButton">
+       <item row="0" column="6">
+        <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>KILL TX</string>
+          <string>RST Out</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>RST In</string>
          </property>
         </widget>
        </item>
        <item row="0" column="9">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>My Call</string>
+        <widget class="QLineEdit" name="destGridLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Other station's MH grid</string>
+         </property>
+         <property name="maxLength">
+          <number>4</number>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="opNameLineEdit">
+       <item row="1" column="3">
+        <widget class="QDoubleSpinBox" name="pwrDoubleSpinBox">
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="minimum">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.500000000000000</double>
+         </property>
+         <property name="value">
+          <double>5.000000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QLineEdit" name="rstInLineEdit">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>65</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>65</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Receiveed signal report</string>
+         </property>
+         <property name="maxLength">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" colspan="2">
+        <widget class="QLineEdit" name="opNameLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -241,40 +326,133 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="4">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="1" column="7">
+        <widget class="QLineEdit" name="mycallLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="sizeHint" stdset="0">
+         <property name="maximumSize">
           <size>
-           <width>40</width>
-           <height>20</height>
+           <width>85</width>
+           <height>16777215</height>
           </size>
          </property>
-        </spacer>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="tuneButton">
-         <property name="text">
-          <string>TUNE</string>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This station's call sign {CS}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
+         <property name="text">
+          <string>N0CALL</string>
+         </property>
+         <property name="maxLength">
+          <number>12</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6" alignment="Qt::AlignRight">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>My Call</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>PWR Out</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Grid</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="9">
+        <widget class="QSpinBox" name="sendingSpeedSpinBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="value">
+          <number>15</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLineEdit" name="mhGridLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Maidenhead (or other) grid reference {MH}</string>
+         </property>
+         <property name="maxLength">
+          <number>4</number>
          </property>
         </widget>
        </item>
        <item row="0" column="7">
+        <widget class="QLineEdit" name="rstOutLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>65</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>65</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Sent signal report</string>
+         </property>
+         <property name="maxLength">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4" alignment="Qt::AlignRight">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>My Grid</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="8">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>WPM</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="8">
-        <widget class="QSpinBox" name="sendingSpeedSpinBox"/>
-       </item>
-       <item row="0" column="0">
+       <item row="0" column="1">
         <widget class="QComboBox" name="heardListComboBox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -284,7 +462,7 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>95</width>
            <height>0</height>
           </size>
          </property>
@@ -299,45 +477,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="11">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>My Grid</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="10">
-        <widget class="QLineEdit" name="mycallLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This station's call sign {CS}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="text">
-          <string>N0CALL</string>
-         </property>
-         <property name="maxLength">
-          <number>12</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
     </item>
@@ -348,7 +487,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>878</width>
+     <width>809</width>
      <height>26</height>
     </rect>
    </property>
@@ -359,24 +498,52 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
+    <enum>RightToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
    <addaction name="actionMAC0"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC1"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC2"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC3"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC4"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC5"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC6"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC7"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC8"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC9"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC10"/>
+   <addaction name="separator"/>
    <addaction name="actionMAC11"/>
    <addaction name="actionConfig"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>BottomToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionLOG"/>
+   <addaction name="separator"/>
+   <addaction name="actionKILL_TX"/>
+   <addaction name="separator"/>
+   <addaction name="actionTUNE"/>
+   <addaction name="separator"/>
   </widget>
   <action name="actionMAC0">
    <property name="text">
@@ -448,6 +615,27 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionLOG">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>LOG</string>
+   </property>
+  </action>
+  <action name="actionKILL_TX">
+   <property name="text">
+    <string>KILL TX</string>
+   </property>
+  </action>
+  <action name="actionTUNE">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>TUNE</string>
    </property>
   </action>
  </widget>

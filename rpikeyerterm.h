@@ -50,8 +50,11 @@ private slots:
     void loadMacros();
     void on_sendButton_clicked();
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
-    void on_tuneButton_clicked(bool checked);
-    void on_killTxButton_clicked();
+    void on_actionLOG_triggered(bool checked);
+    void on_actionKILL_TX_triggered();
+    void on_actionTUNE_triggered(bool checked);
+
+    void on_delCallButton_clicked();
 
 private:
     Ui::RPiKeyerTerm *ui;

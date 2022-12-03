@@ -38,3 +38,20 @@ void MacroDialog::on_saveMacroButton_clicked()
     s.setValue("Macros/macro" + QString::number(row) + "Label", ui->macroLabelLineEdit->text());
     emit loadMacros();
 }
+
+
+void MacroDialog::on_macroListWidget_currentRowChanged(int currentRow)
+{
+    QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
+    int macnum = currentRow;
+    const QString text = s.value("Macros/macro" + QString::number(macnum) + "Text").toString();
+    const QString label = s.value("Macros/macro" + QString::number(macnum) + "Label").toString();
+    ui->macroTextEdit->setPlainText(text);
+    ui->macroLabelLineEdit->setText(label);
+    ui->saveMacroButton->setEnabled(true);
+}
+
+void MacroDialog::on_macroDialogCloseButton_clicked()
+{
+    close();
+}
