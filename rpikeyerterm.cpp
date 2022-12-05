@@ -321,6 +321,7 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
     qDebug()<<checked;
     LogDialog *ld = new LogDialog(this);
     ld->setCurrentValues();
+    ld->setFrequency(ui->freqSpinBox->value());
     ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
     ld->setOpName(ui->opNameLineEdit->text().trimmed());
     ld->setPower(ui->pwrDoubleSpinBox->value());

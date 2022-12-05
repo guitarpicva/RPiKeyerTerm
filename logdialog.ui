@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>259</height>
+    <width>465</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,13 +92,6 @@
      </item>
     </widget>
    </item>
-   <item row="8" column="2">
-    <widget class="QPushButton" name="logUpdateButton">
-     <property name="text">
-      <string>Update</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="2">
     <widget class="QLabel" name="label_2">
      <property name="text">
@@ -113,13 +106,6 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="3">
-    <widget class="QLabel" name="label_9">
-     <property name="text">
-      <string>Output Power</string>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0">
     <widget class="QSpinBox" name="logFrequencySpinBox">
      <property name="minimum">
@@ -128,15 +114,11 @@
      <property name="maximum">
       <number>29999999</number>
      </property>
-     <property name="value">
-      <number>14070000</number>
+     <property name="singleStep">
+      <number>100</number>
      </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Frequency</string>
+     <property name="value">
+      <number>14035000</number>
      </property>
     </widget>
    </item>
@@ -260,6 +242,27 @@
      </property>
     </widget>
    </item>
+   <item row="4" column="3">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Output Power</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Frequency</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -275,7 +278,6 @@
   <tabstop>logOpNameLineEdit</tabstop>
   <tabstop>logCommentLineEdit</tabstop>
   <tabstop>logSaveButton</tabstop>
-  <tabstop>logUpdateButton</tabstop>
   <tabstop>logClearButton</tabstop>
  </tabstops>
  <resources/>

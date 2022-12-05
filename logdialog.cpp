@@ -15,6 +15,7 @@ LogDialog::LogDialog(QWidget *parent) :
     QDir d;
     d.mkdir("logs"); // just in case
     logfile.setFileName("logs/QDXPro.log");
+    ui->logCommentLineEdit->setFocus();
 }
 
 LogDialog::~LogDialog()
@@ -31,6 +32,9 @@ void LogDialog::setCurrentValues()
 
 void LogDialog::setFrequency(const double freq)
 {
+    if(freq == 0.0) {
+        return;
+    }
     ui->logFrequencySpinBox->setValue((int) freq * 1000);
 }
 
@@ -75,6 +79,7 @@ void LogDialog::on_logSaveButton_clicked()
     // wsjt style CSV log line
     // date on, time on, date off, time off, CALL, MHG, freq, mode, Sent rpt, Recd rpt, pwr,comments,opname
     //2022-11-07,16:23:30,2022-11-07,16:29:44,WF1T,FN43,14.074404,FT8,+18,-16,5,comment, Larry,
+
     QString out = ui->dtOnDateTimeEdit->dateTime().toString("yyyy-MM-dd").append(DELIM).append(ui->dtOnDateTimeEdit->dateTime().toString("hh:mm:ss")).append(DELIM);
     out.append(ui->dtOffDateTimeEdit->dateTime().toString("yyyy-MM-dd")).append(DELIM).append(ui->dtOffDateTimeEdit->dateTime().toString("hh:mm:ss")).append(DELIM);
     out.append(ui->logCallLineEdit->text().trimmed().toUpper().replace(","," ")).append(DELIM).append(ui->logMHLineEdit->text().trimmed().replace(","," ")).append(DELIM);
@@ -87,6 +92,7 @@ void LogDialog::on_logSaveButton_clicked()
         logfile.write("\r\n");
         logfile.close();
     }
+    close();
 }
 
 void LogDialog::on_logUpdateButton_clicked()
@@ -105,3 +111,7 @@ void LogDialog::on_logClearButton_clicked()
     setCurrentValues();
 }
 
+void LogDialog::on_pushButton_clicked()
+{
+    close();
+}

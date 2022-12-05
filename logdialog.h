@@ -31,10 +31,14 @@ private slots:
     void on_logUpdateButton_clicked();
     void on_logClearButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::LogDialog *ui;
     const QString DELIM = ",";
     QFile logfile;
+    bool b_keepPower = true;
+    bool b_keepFreq = true;
 };
 
 #endif // LOGDIALOG_H
