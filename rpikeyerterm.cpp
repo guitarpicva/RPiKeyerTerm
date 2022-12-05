@@ -315,6 +315,7 @@ void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
 void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
 {
     // do log dialog
+    qDebug()<<checked;
 }
 
 void RPiKeyerTerm::on_actionKILL_TX_triggered()

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LogDialog</class>
+ <widget class="QDialog" name="LogDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>368</width>
+    <height>259</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Logging</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="5" column="2">
+    <widget class="QLineEdit" name="logReceivedReportLineEdit"/>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Received Report</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>Comments</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Mode</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QDateTimeEdit" name="dtOffDateTimeEdit">
+     <property name="calendarPopup">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Sent Report</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QComboBox" name="logModeComboBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>CW</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>FT8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>FT4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>THOR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Olivia</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Domino</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QPushButton" name="logUpdateButton">
+     <property name="text">
+      <string>Update</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>D/T Off</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Call Sign</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Output Power</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QSpinBox" name="logFrequencySpinBox">
+     <property name="minimum">
+      <number>100000</number>
+     </property>
+     <property name="maximum">
+      <number>29999999</number>
+     </property>
+     <property name="value">
+      <number>14070000</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Frequency</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QLineEdit" name="logOpNameLineEdit">
+     <property name="maxLength">
+      <number>32</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Maidenhead Grid</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>D/T ON</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLineEdit" name="logMHLineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maxLength">
+      <number>6</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>Op Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="3">
+    <widget class="QPushButton" name="logSaveButton">
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDateTimeEdit" name="dtOnDateTimeEdit">
+     <property name="calendarPopup">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QLineEdit" name="logCallLineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Courier New</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="maxLength">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLineEdit" name="logSentReportLineEdit"/>
+   </item>
+   <item row="5" column="3">
+    <widget class="QDoubleSpinBox" name="logPowerSpinBox">
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="minimum">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>1000.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>5.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2" colspan="2">
+    <widget class="QLineEdit" name="logCommentLineEdit">
+     <property name="maxLength">
+      <number>64</number>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="8" column="0">
+    <widget class="QPushButton" name="logClearButton">
+     <property name="text">
+      <string>Clear</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>dtOnDateTimeEdit</tabstop>
+  <tabstop>dtOffDateTimeEdit</tabstop>
+  <tabstop>logCallLineEdit</tabstop>
+  <tabstop>logFrequencySpinBox</tabstop>
+  <tabstop>logModeComboBox</tabstop>
+  <tabstop>logMHLineEdit</tabstop>
+  <tabstop>logSentReportLineEdit</tabstop>
+  <tabstop>logReceivedReportLineEdit</tabstop>
+  <tabstop>logPowerSpinBox</tabstop>
+  <tabstop>logOpNameLineEdit</tabstop>
+  <tabstop>logCommentLineEdit</tabstop>
+  <tabstop>logSaveButton</tabstop>
+  <tabstop>logUpdateButton</tabstop>
+  <tabstop>logClearButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

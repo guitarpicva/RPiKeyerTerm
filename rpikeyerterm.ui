@@ -697,6 +697,27 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>heardListComboBox</tabstop>
+  <tabstop>opNameLineEdit</tabstop>
+  <tabstop>rstInLineEdit</tabstop>
+  <tabstop>rstOutLineEdit</tabstop>
+  <tabstop>destGridLineEdit</tabstop>
+  <tabstop>pwrDoubleSpinBox</tabstop>
+  <tabstop>mhGridLineEdit</tabstop>
+  <tabstop>mycallLineEdit</tabstop>
+  <tabstop>sendingSpeedSpinBox</tabstop>
+  <tabstop>receiveTextArea</tabstop>
+  <tabstop>conversationTextEdit</tabstop>
+  <tabstop>receiveTextClearButton</tabstop>
+  <tabstop>updateClearButton</tabstop>
+  <tabstop>delCallButton</tabstop>
+  <tabstop>sendClearButton</tabstop>
+  <tabstop>sendTextArea</tabstop>
+  <tabstop>sendButton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>sendCallButton</tabstop>
+ </tabstops>
  <resources>
   <include location="qresource.qrc"/>
  </resources>
