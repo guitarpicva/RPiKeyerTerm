@@ -1,15 +1,18 @@
 #include "rpikeyerterm.h"
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
+#include "logdialog.h"
 
 #include <QThread>
-
+#include <QDir>
 #include <QDebug>
 
 RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::RPiKeyerTerm)
 {
+    QDir d(".");
+    d.mkdir("logs");
     ui->setupUi(this);
     // set up the GPIO pin from settings and initialize it and test it
     settings = new QSettings("RPiKeyerTerm.ini", QSettings::IniFormat);
@@ -316,6 +319,15 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
 {
     // do log dialog
     qDebug()<<checked;
+    LogDialog *ld = new LogDialog(this);
+    ld->setCurrentValues();
+    ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
+    ld->setOpName(ui->opNameLineEdit->text().trimmed());
+    ld->setPower(ui->pwrDoubleSpinBox->value());
+    ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
+    ld->setRemoteLoc(ui->mhGridLineEdit->text().trimmed());
+    ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
+    ld->show();
 }
 
 void RPiKeyerTerm::on_actionKILL_TX_triggered()

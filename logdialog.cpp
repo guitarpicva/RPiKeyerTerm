@@ -26,13 +26,32 @@ void LogDialog::setCurrentValues()
 {
     const QDateTime now = QDateTime::currentDateTimeUtc();
     ui->dtOffDateTimeEdit->setDateTime(now);
-    ui->dtOnDateTimeEdit->setDateTime(now);
-
+    ui->dtOnDateTimeEdit->setDateTime(now);    
 }
 
 void LogDialog::setFrequency(const double freq)
 {
     ui->logFrequencySpinBox->setValue((int) freq * 1000);
+}
+
+void LogDialog::setPower(const double power)
+{
+    ui->logPowerSpinBox->setValue(power);
+}
+
+void LogDialog::setRemoteLoc(const QString remote)
+{
+    ui->logMHLineEdit->setText(remote);
+}
+
+void LogDialog::setSentReport(const QString sent)
+{
+    ui->logSentReportLineEdit->setText(sent);
+}
+
+void LogDialog::setRecdReport(const QString recd)
+{
+    ui->logReceivedReportLineEdit->setText(recd);
 }
 
 void LogDialog::setMode(const QString mode)

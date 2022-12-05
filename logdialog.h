@@ -22,6 +22,10 @@ public slots:
     void setOpName(const QString op);
     void setMode(const QString mode);
     void setFrequency(const double freq);
+    void setPower(const double power);
+    void setRemoteLoc(const QString remote);
+    void setSentReport(const QString sent);
+    void setRecdReport(const QString recd);
 private slots:
     void on_logSaveButton_clicked();
     void on_logUpdateButton_clicked();
