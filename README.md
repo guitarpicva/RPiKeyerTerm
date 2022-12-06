@@ -5,7 +5,9 @@ with the radio's CW key line.
 
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
+````
 sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase5-dev
+````
 
 To build from source:
 ````
@@ -39,4 +41,4 @@ cd ~/RPiKeyerTerm
 exit 0
 ````
 
-Save the file with Ctrl-O <Enter> Ctrl_X
+Save the file with Ctrl-O <Enter> Ctrl-X
