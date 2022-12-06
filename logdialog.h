@@ -28,10 +28,8 @@ public slots:
     void setRecdReport(const QString recd);
 private slots:
     void on_logSaveButton_clicked();
-    void on_logUpdateButton_clicked();
     void on_logClearButton_clicked();
-
-    void on_pushButton_clicked();
+    void on_closeButton_clicked();
 
 private:
     Ui::LogDialog *ui;

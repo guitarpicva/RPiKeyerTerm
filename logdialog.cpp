@@ -95,11 +95,6 @@ void LogDialog::on_logSaveButton_clicked()
     close();
 }
 
-void LogDialog::on_logUpdateButton_clicked()
-{
-
-}
-
 void LogDialog::on_logClearButton_clicked()
 {
     ui->logCallLineEdit->clear();
@@ -111,7 +106,7 @@ void LogDialog::on_logClearButton_clicked()
     setCurrentValues();
 }
 
-void LogDialog::on_pushButton_clicked()
+void LogDialog::on_closeButton_clicked()
 {
     close();
 }

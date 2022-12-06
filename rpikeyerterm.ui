@@ -698,9 +698,6 @@
    </property>
   </action>
   <action name="actionLOG">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
    <property name="text">
     <string>LOG</string>
    </property>
