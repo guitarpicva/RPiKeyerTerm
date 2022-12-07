@@ -14,7 +14,7 @@
    <string>RPiKeyerTerm</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {font-size:14pt;}</string>
+   <string notr="true">QWidget {font-size:12pt;}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -92,7 +92,7 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>14</pointsize>
+            <pointsize>12</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -154,7 +154,7 @@
         <widget class="QPushButton" name="updateButton">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -249,7 +249,7 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -533,7 +533,7 @@
      <x>0</x>
      <y>0</y>
      <width>763</width>
-     <height>31</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>
