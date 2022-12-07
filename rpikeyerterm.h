@@ -42,7 +42,7 @@ private slots:
     void on_actionMAC10_triggered();
     void on_actionMAC11_triggered();
     void on_actionMAC12_triggered();
-    void on_pushButton_2_clicked();
+    void on_updateButton_clicked();
     void on_updateClearButton_clicked();
     void on_sendClearButton_clicked();
     void on_actionConfig_triggered();
@@ -56,6 +56,9 @@ private slots:
     void on_delCallButton_clicked();
     void on_sendCallButton_clicked();
     void sendText(const QString tokey);
+    void on_actionUpdate_triggered();
+    void on_actionView_Log_triggered();
+
 private:
     Ui::RPiKeyerTerm *ui;
     MacroDialog *md = nullptr;

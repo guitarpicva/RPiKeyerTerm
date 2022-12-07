@@ -3,8 +3,9 @@
 #include "alphabet.h"
 #include "logdialog.h"
 
-#include <QThread>
 #include <QDir>
+//#include <QMessageBox>
+#include <QThread>
 #include <QDebug>
 
 RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
@@ -73,7 +74,26 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
             tmp = ui->opNameLineEdit->text().trimmed();
             out = toSend.replace("{OP}", tmp);
         }
-
+        if(toSend.contains("{RO}")) {
+            tmp = ui->rstOutLineEdit->text().trimmed();
+            out = toSend.replace("{RO}", tmp);
+        }
+        if(toSend.contains("{RI}")) {
+            tmp = ui->rstInLineEdit->text().trimmed();
+            out = toSend.replace("{RI}", tmp);
+        }
+        if(toSend.contains("{LO}")) {
+            tmp = ui->destGridLineEdit->text().trimmed();
+            out = toSend.replace("{LO}", tmp);
+        }
+        if(toSend.contains("{PO}")) {
+            tmp = ui->pwrSpinBox->text();
+            out = toSend.replace("{PO}", tmp);
+        }
+        if(toSend.contains("{FR}")) {
+            tmp = ui->freqSpinBox->text();
+            out = toSend.replace("{FR}", tmp.mid(0, tmp.indexOf(".")));
+        }
     }
     return out;
 }
@@ -153,7 +173,7 @@ void RPiKeyerTerm::on_actionMAC12_triggered()
     macroTriggered(12);
 }
 
-void RPiKeyerTerm::on_pushButton_2_clicked()
+void RPiKeyerTerm::on_updateButton_clicked()
 {
     ui->receiveTextArea->moveCursor(QTextCursor::End);
     ui->receiveTextArea->insertPlainText("\nRECEIVED: " + ui->conversationTextEdit->toPlainText().trimmed());
@@ -168,6 +188,7 @@ void RPiKeyerTerm::loadSettings()
     ui->sendingSpeedSpinBox->setValue(settings->value("sendingSpeed", 15).toInt());
     QStringList items = settings->value("heardList", "").toStringList();
     ui->heardListComboBox->addItems(items);
+    ui->updateGroupBox->setVisible(settings->value("showUpdate", false).toBool());
     restoreGeometry(settings->value("geometry", "").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
 }
@@ -182,6 +203,7 @@ void RPiKeyerTerm::saveSettings()
         items<<ui->heardListComboBox->itemText(i);
     }
     items.removeDuplicates();
+    settings->setValue("showUpdate", ui->updateGroupBox->isVisible());
     settings->setValue("heardList", items);
     settings->setValue("geometry", saveGeometry());
     settings->setValue("windowState", saveState());
@@ -304,6 +326,8 @@ void RPiKeyerTerm::sendText(const QString tokey)
 
 void RPiKeyerTerm::on_sendButton_clicked()
 {
+    // TODO: might want to put tokey on the heap and append to it here
+    // but that means also perhaps having a PTT step before sending and once finished
     auto tokey = ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]")); // no line ends in Morse
     //tokey = resolveTextSubstitutions(tokey);
     sendText(tokey);
@@ -324,7 +348,7 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
     ld->setFrequency(ui->freqSpinBox->value());
     ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
     ld->setOpName(ui->opNameLineEdit->text().trimmed());
-    ld->setPower(ui->pwrDoubleSpinBox->value());
+    ld->setPower(ui->pwrSpinBox->value());
     ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
     ld->setRemoteLoc(ui->mhGridLineEdit->text().trimmed());
     ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
@@ -353,4 +377,19 @@ void RPiKeyerTerm::on_delCallButton_clicked()
 void RPiKeyerTerm::on_sendCallButton_clicked()
 {
     sendText(ui->mycallLineEdit->text().trimmed().toUpper());
+}
+
+void RPiKeyerTerm::on_actionUpdate_triggered()
+{
+    bool isVisible = ui->updateGroupBox->isVisible();
+    ui->updateGroupBox->setVisible(!isVisible);
+    settings->setValue("showUpdate", !isVisible);
+}
+
+void RPiKeyerTerm::on_actionView_Log_triggered()
+{
+    QFile f("logs/RPiKeyerTerm.log");
+    if(f.open(QFile::ReadOnly)) {
+        ui->receiveTextArea->appendPlainText(f.readAll());
+    }
 }

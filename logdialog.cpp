@@ -14,7 +14,7 @@ LogDialog::LogDialog(QWidget *parent) :
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     QDir d;
     d.mkdir("logs"); // just in case
-    logfile.setFileName("logs/QDXPro.log");
+    logfile.setFileName("logs/RPiKeyerTerm.log");
     ui->logCommentLineEdit->setFocus();
 }
 
@@ -38,7 +38,7 @@ void LogDialog::setFrequency(const double freq)
     ui->logFrequencySpinBox->setValue((int) freq * 1000);
 }
 
-void LogDialog::setPower(const double power)
+void LogDialog::setPower(const int power)
 {
     ui->logPowerSpinBox->setValue(power);
 }

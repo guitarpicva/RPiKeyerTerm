@@ -22,7 +22,7 @@ public slots:
     void setOpName(const QString op);
     void setMode(const QString mode);
     void setFrequency(const double freq);
-    void setPower(const double power);
+    void setPower(const int power);
     void setRemoteLoc(const QString remote);
     void setSentReport(const QString sent);
     void setRecdReport(const QString recd);

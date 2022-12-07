@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>475</width>
-    <height>485</height>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,10 +15,35 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="1">
-    <widget class="QPlainTextEdit" name="macroTextEdit"/>
+    <widget class="QPlainTextEdit" name="macroTextEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>265</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item row="0" column="0">
     <widget class="QListWidget" name="macroListWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>265</height>
+      </size>
+     </property>
      <property name="maximumSize">
       <size>
        <width>120</width>
@@ -119,11 +144,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Macro Text Substitutions
-{CS} = Configured Call Sign
-{DS} = Destination Station Call Sign Selected on Heard List
-{MH} = Configured Maidenhead Grid Reference
-{OP} Operator name typed into the field next to the Heard list.</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Macro Text Substitutions&lt;/p&gt;&lt;p&gt;{CS} = Configured Call Sign&lt;br/&gt;{DS} = Destination Station Call Sign Selected on Heard List&lt;br/&gt;{MH} = Configured Maidenhead Grid Reference&lt;br/&gt;{OP} = Operator name typed into the field next to the Heard list&lt;br/&gt;{RO} = Report Sent to other station&lt;br/&gt;{RI} = Report Received from other station&lt;br/&gt;{PO} = Output power used&lt;br/&gt;{FR} = Frequency&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

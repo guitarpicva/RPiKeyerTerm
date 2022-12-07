@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>809</width>
-    <height>599</height>
+    <width>763</width>
+    <height>678</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>RPiKeyerTerm</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {font-size:14pt;}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -89,7 +92,7 @@
           </property>
           <property name="font">
            <font>
-            <pointsize>18</pointsize>
+            <pointsize>14</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -111,11 +114,17 @@
         </item>
         <item row="1" column="1">
          <widget class="QPushButton" name="sendCallButton">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>40</height>
+           </size>
+          </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send only my call sign now.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
-           <string>Send Call</string>
+           <string>Callsign</string>
           </property>
          </widget>
         </item>
@@ -124,7 +133,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox_3">
+     <widget class="QGroupBox" name="updateGroupBox">
       <property name="title">
        <string/>
       </property>
@@ -142,9 +151,10 @@
         <number>0</number>
        </property>
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="updateButton">
          <property name="font">
           <font>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -239,7 +249,7 @@
          </property>
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <pointsize>14</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -281,26 +291,7 @@
           <string>Other station's MH grid</string>
          </property>
          <property name="maxLength">
-          <number>4</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QDoubleSpinBox" name="pwrDoubleSpinBox">
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="minimum">
-          <double>0.100000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>1000.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.500000000000000</double>
-         </property>
-         <property name="value">
-          <double>5.000000000000000</double>
+          <number>32</number>
          </property>
         </widget>
        </item>
@@ -428,7 +419,7 @@
           <string>Maidenhead (or other) grid reference {MH}</string>
          </property>
          <property name="maxLength">
-          <number>4</number>
+          <number>32</number>
          </property>
         </widget>
        </item>
@@ -463,7 +454,7 @@
        <item row="1" column="4" alignment="Qt::AlignRight">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>My Grid</string>
+          <string>My Loc</string>
          </property>
         </widget>
        </item>
@@ -521,6 +512,16 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="3">
+        <widget class="QSpinBox" name="pwrSpinBox">
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="value">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -531,8 +532,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>809</width>
-     <height>26</height>
+     <width>763</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
@@ -542,7 +543,7 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>RightToolBarArea</enum>
+    <enum>BottomToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -577,7 +578,7 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
+    <enum>RightToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -588,6 +589,9 @@
    <addaction name="separator"/>
    <addaction name="actionTUNE"/>
    <addaction name="separator"/>
+   <addaction name="actionUpdate"/>
+   <addaction name="separator"/>
+   <addaction name="actionView_Log"/>
   </widget>
   <action name="actionMAC0">
    <property name="text">
@@ -701,6 +705,9 @@
    <property name="text">
     <string>LOG</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
   </action>
   <action name="actionKILL_TX">
    <property name="text">
@@ -714,6 +721,22 @@
    <property name="text">
     <string>TUNE</string>
    </property>
+   <property name="shortcut">
+    <string>Shift+T</string>
+   </property>
+  </action>
+  <action name="actionUpdate">
+   <property name="text">
+    <string>Update</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/Hide the converstaion update area</string>
+   </property>
+  </action>
+  <action name="actionView_Log">
+   <property name="text">
+    <string>View Log</string>
+   </property>
   </action>
  </widget>
  <tabstops>
@@ -722,7 +745,7 @@
   <tabstop>rstInLineEdit</tabstop>
   <tabstop>rstOutLineEdit</tabstop>
   <tabstop>destGridLineEdit</tabstop>
-  <tabstop>pwrDoubleSpinBox</tabstop>
+  <tabstop>pwrSpinBox</tabstop>
   <tabstop>mhGridLineEdit</tabstop>
   <tabstop>mycallLineEdit</tabstop>
   <tabstop>sendingSpeedSpinBox</tabstop>
@@ -734,7 +757,7 @@
   <tabstop>sendClearButton</tabstop>
   <tabstop>sendTextArea</tabstop>
   <tabstop>sendButton</tabstop>
-  <tabstop>pushButton_2</tabstop>
+  <tabstop>updateButton</tabstop>
   <tabstop>sendCallButton</tabstop>
  </tabstops>
  <resources>
