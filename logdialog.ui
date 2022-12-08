@@ -132,7 +132,7 @@
    <item row="2" column="3">
     <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Maidenhead Grid</string>
+      <string>Loc</string>
      </property>
     </widget>
    </item>
@@ -187,8 +187,8 @@
      </property>
      <property name="font">
       <font>
-       <family>Courier New</family>
-       <pointsize>10</pointsize>
+       <family>DejaVu Sans Mono</family>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="maxLength">

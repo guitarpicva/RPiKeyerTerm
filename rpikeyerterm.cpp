@@ -350,7 +350,7 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
     ld->setOpName(ui->opNameLineEdit->text().trimmed());
     ld->setPower(ui->pwrSpinBox->value());
     ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
-    ld->setRemoteLoc(ui->mhGridLineEdit->text().trimmed());
+    ld->setRemoteLoc(ui->destGridLineEdit->text().trimmed());
     ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
     ld->show();
 }
