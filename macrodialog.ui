@@ -14,7 +14,14 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="saveMacroButton">
+     <property name="text">
+      <string>Save Macro</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
     <widget class="QPlainTextEdit" name="macroTextEdit">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -30,7 +37,14 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0">
+   <item row="3" column="0">
+    <widget class="QPushButton" name="macroDialogCloseButton">
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QListWidget" name="macroListWidget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -113,23 +127,9 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QPushButton" name="saveMacroButton">
-     <property name="text">
-      <string>Save Macro</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
     <widget class="QLineEdit" name="macroLabelLineEdit"/>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Button Label Text</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
+   <item row="4" column="0" colspan="2">
     <widget class="QLabel" name="macroHelpLabel">
      <property name="minimumSize">
       <size>
@@ -152,9 +152,16 @@
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QPushButton" name="macroDialogCloseButton">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Close</string>
+      <string>Button Label Text</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Macros can be triggered by Shift+Fn, where &quot;n&quot; is the macro number.</string>
      </property>
     </widget>
    </item>

@@ -743,6 +743,9 @@
    <property name="text">
     <string>Config</string>
    </property>
+   <property name="toolTip">
+    <string>Configure Macros</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
    </property>
@@ -750,6 +753,9 @@
   <action name="actionLOG">
    <property name="text">
     <string>LOG</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the LOG dialog</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
@@ -759,6 +765,9 @@
    <property name="text">
     <string>KILL TX</string>
    </property>
+   <property name="toolTip">
+    <string>KILL the current transmission</string>
+   </property>
   </action>
   <action name="actionTUNE">
    <property name="checkable">
@@ -766,6 +775,9 @@
    </property>
    <property name="text">
     <string>TUNE</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle sending a carrier</string>
    </property>
    <property name="shortcut">
     <string>Shift+T</string>
@@ -782,6 +794,9 @@
   <action name="actionView_Log">
    <property name="text">
     <string>View Log</string>
+   </property>
+   <property name="toolTip">
+    <string>View Log in the rx text area</string>
    </property>
   </action>
  </widget>
