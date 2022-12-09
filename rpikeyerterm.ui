@@ -97,11 +97,14 @@
           </property>
           <property name="font">
            <font>
-            <family>DejaVu Sans</family>
+            <family>PibotoLt</family>
             <pointsize>18</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:darkred;</string>
           </property>
           <property name="text">
            <string>SEND</string>
@@ -161,8 +164,8 @@
          <property name="font">
           <font>
            <family>DejaVu Sans</family>
-           <weight>75</weight>
-           <bold>true</bold>
+           <weight>50</weight>
+           <bold>false</bold>
           </font>
          </property>
          <property name="mouseTracking">
