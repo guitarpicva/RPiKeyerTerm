@@ -168,11 +168,6 @@ void RPiKeyerTerm::on_actionMAC11_triggered()
     macroTriggered(11);
 }
 
-void RPiKeyerTerm::on_actionMAC12_triggered()
-{
-    macroTriggered(12);
-}
-
 void RPiKeyerTerm::on_updateButton_clicked()
 {
     ui->receiveTextArea->moveCursor(QTextCursor::End);
