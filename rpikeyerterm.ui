@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
+    <width>761</width>
     <height>678</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>DejaVu Sans</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>RPiKeyerTerm</string>
@@ -92,6 +97,7 @@
           </property>
           <property name="font">
            <font>
+            <family>DejaVu Sans</family>
             <pointsize>18</pointsize>
             <weight>75</weight>
             <bold>true</bold>
@@ -154,6 +160,7 @@
         <widget class="QPushButton" name="updateButton">
          <property name="font">
           <font>
+           <family>DejaVu Sans</family>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -248,6 +255,7 @@
          </property>
          <property name="font">
           <font>
+           <family>DejaVu Sans</family>
            <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
@@ -531,8 +539,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>763</width>
-     <height>26</height>
+     <width>761</width>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -542,7 +550,7 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
+    <enum>RightToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -577,7 +585,7 @@
     <string>toolBar</string>
    </property>
    <attribute name="toolBarArea">
-    <enum>RightToolBarArea</enum>
+    <enum>BottomToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
