@@ -108,9 +108,9 @@ void RPiKeyerTerm::macroTriggered(const int index)
     ui->sendTextArea->setFocus();
 }
 
-void RPiKeyerTerm::on_actionMAC0_triggered()
+void RPiKeyerTerm::on_actionMAC12_triggered()
 {
-    macroTriggered(0);
+    macroTriggered(12);
 }
 
 void RPiKeyerTerm::on_actionMAC1_triggered()
@@ -245,14 +245,13 @@ void RPiKeyerTerm::loadMacros()
 {
     QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
     QString text, label, content;
-    for(int i = 0; i < 12; i++)
+    for(int i = 1; i < 13; i++)
     {
         label = s.value("Macros/macro" + QString::number(i) + "Label", "").toString();
         content = s.value("Macros/macro" + QString::number(i) + "Text", "").toString();
         if(label.isEmpty())
             label = "MAC" + QString::number(i);
         switch(i){
-        case 0: ui->actionMAC0->setText(label);ui->actionMAC0->setToolTip(content);break;
         case 1: ui->actionMAC1->setText(label);ui->actionMAC1->setToolTip(content);break;
         case 2: ui->actionMAC2->setText(label);ui->actionMAC2->setToolTip(content);break;
         case 3: ui->actionMAC3->setText(label);ui->actionMAC3->setToolTip(content);break;
@@ -262,10 +261,10 @@ void RPiKeyerTerm::loadMacros()
         case 7: ui->actionMAC7->setText(label);ui->actionMAC7->setToolTip(content);break;
         case 8: ui->actionMAC8->setText(label);ui->actionMAC8->setToolTip(content);break;
         case 9: ui->actionMAC9->setText(label);ui->actionMAC9->setToolTip(content);break;
-        case 10: ui->actionMAC10->setText(label);ui->actionMAC10->setToolTip(content);break;
+        case 0: ui->actionMAC10->setText(label);ui->actionMAC10->setToolTip(content);break;
         case 11: ui->actionMAC11->setText(label);ui->actionMAC11->setToolTip(content);break;
+        case 12: ui->actionMAC12->setText(label);ui->actionMAC12->setToolTip(content);break;
         }
-
     }
 }
 

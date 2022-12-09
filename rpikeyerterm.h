@@ -29,7 +29,6 @@ public:
 private slots:
     QString resolveTextSubstitutions(QString toSend);
     void macroTriggered(const int index);
-    void on_actionMAC0_triggered();
     void on_actionMAC1_triggered();
     void on_actionMAC2_triggered();
     void on_actionMAC3_triggered();
@@ -41,6 +40,7 @@ private slots:
     void on_actionMAC9_triggered();
     void on_actionMAC10_triggered();
     void on_actionMAC11_triggered();
+    void on_actionMAC12_triggered();
     void on_updateButton_clicked();
     void on_updateClearButton_clicked();
     void on_sendClearButton_clicked();

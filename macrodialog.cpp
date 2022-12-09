@@ -19,7 +19,7 @@ MacroDialog::~MacroDialog()
 void MacroDialog::on_macroListWidget_clicked(const QModelIndex &index)
 {
     QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
-    int macnum = index.row();
+    int macnum = index.row() + 1;
     const QString text = s.value("Macros/macro" + QString::number(macnum) + "Text").toString();
     const QString label = s.value("Macros/macro" + QString::number(macnum) + "Label").toString();
     ui->macroTextEdit->setPlainText(text);
@@ -31,7 +31,7 @@ void MacroDialog::on_saveMacroButton_clicked()
 {
     QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
     QListWidgetItem *it = ui->macroListWidget->currentItem();
-    int row = ui->macroListWidget->currentRow();
+    int row = ui->macroListWidget->currentRow() + 1;
     const QString item = it->text();
     //qDebug()<<"Item:"<<item;
     s.setValue("Macros/macro" + QString::number(row) + "Text", ui->macroTextEdit->toPlainText());
@@ -43,7 +43,7 @@ void MacroDialog::on_saveMacroButton_clicked()
 void MacroDialog::on_macroListWidget_currentRowChanged(int currentRow)
 {
     QSettings s("RPiKeyerTerm.ini", QSettings::IniFormat);
-    int macnum = currentRow;
+    int macnum = currentRow + 1;
     const QString text = s.value("Macros/macro" + QString::number(macnum) + "Text").toString();
     const QString label = s.value("Macros/macro" + QString::number(macnum) + "Label").toString();
     ui->macroTextEdit->setPlainText(text);

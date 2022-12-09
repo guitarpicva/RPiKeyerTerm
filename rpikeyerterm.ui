@@ -558,8 +558,6 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionMAC0"/>
-   <addaction name="separator"/>
    <addaction name="actionMAC1"/>
    <addaction name="separator"/>
    <addaction name="actionMAC2"/>
@@ -581,6 +579,8 @@
    <addaction name="actionMAC10"/>
    <addaction name="separator"/>
    <addaction name="actionMAC11"/>
+   <addaction name="separator"/>
+   <addaction name="actionMAC12"/>
    <addaction name="actionConfig"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
@@ -603,100 +603,136 @@
    <addaction name="separator"/>
    <addaction name="actionView_Log"/>
   </widget>
-  <action name="actionMAC0">
-   <property name="text">
-    <string>MAC0</string>
-   </property>
-   <property name="shortcut">
-    <string>F1</string>
-   </property>
-  </action>
   <action name="actionMAC1">
    <property name="text">
     <string>MAC1</string>
    </property>
+   <property name="toolTip">
+    <string>MAC1</string>
+   </property>
    <property name="shortcut">
-    <string>F2</string>
+    <string>Shift+F1</string>
    </property>
   </action>
   <action name="actionMAC2">
    <property name="text">
     <string>MAC2</string>
    </property>
+   <property name="toolTip">
+    <string>MAC2</string>
+   </property>
    <property name="shortcut">
-    <string>F3</string>
+    <string>Shift+F2</string>
    </property>
   </action>
   <action name="actionMAC3">
    <property name="text">
     <string>MAC3</string>
    </property>
+   <property name="toolTip">
+    <string>MAC3</string>
+   </property>
    <property name="shortcut">
-    <string>F4</string>
+    <string>Shift+F3</string>
    </property>
   </action>
   <action name="actionMAC4">
    <property name="text">
     <string>MAC4</string>
    </property>
+   <property name="toolTip">
+    <string>MAC4</string>
+   </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string>Shift+F4</string>
    </property>
   </action>
   <action name="actionMAC5">
    <property name="text">
     <string>MAC5</string>
    </property>
+   <property name="toolTip">
+    <string>MAC5</string>
+   </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>Shift+F5</string>
    </property>
   </action>
   <action name="actionMAC6">
    <property name="text">
     <string>MAC6</string>
    </property>
+   <property name="toolTip">
+    <string>MAC6</string>
+   </property>
    <property name="shortcut">
-    <string>F7</string>
+    <string>Shift+F6</string>
    </property>
   </action>
   <action name="actionMAC7">
    <property name="text">
     <string>MAC7</string>
    </property>
+   <property name="toolTip">
+    <string>MAC7</string>
+   </property>
    <property name="shortcut">
-    <string>F8</string>
+    <string>Shift+F7</string>
    </property>
   </action>
   <action name="actionMAC8">
    <property name="text">
     <string>MAC8</string>
    </property>
+   <property name="toolTip">
+    <string>MAC8</string>
+   </property>
    <property name="shortcut">
-    <string>F9</string>
+    <string>Shift+F8</string>
    </property>
   </action>
   <action name="actionMAC9">
    <property name="text">
     <string>MAC9</string>
    </property>
+   <property name="toolTip">
+    <string>MAC9</string>
+   </property>
    <property name="shortcut">
-    <string>F10</string>
+    <string>Shift+F9</string>
    </property>
   </action>
   <action name="actionMAC10">
    <property name="text">
     <string>MAC10</string>
    </property>
+   <property name="toolTip">
+    <string>MAC10</string>
+   </property>
    <property name="shortcut">
-    <string>F11</string>
+    <string>Shift+F10</string>
    </property>
   </action>
   <action name="actionMAC11">
    <property name="text">
     <string>MAC11</string>
    </property>
+   <property name="toolTip">
+    <string>MAC11</string>
+   </property>
    <property name="shortcut">
-    <string>F12</string>
+    <string>Shift+F11</string>
+   </property>
+  </action>
+  <action name="actionMAC12">
+   <property name="text">
+    <string>MAC12</string>
+   </property>
+   <property name="toolTip">
+    <string>MAC12 (Shift+F12)</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F12</string>
    </property>
   </action>
   <action name="actionConfig">
