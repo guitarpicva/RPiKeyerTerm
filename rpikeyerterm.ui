@@ -86,13 +86,13 @@
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>50</height>
+            <height>45</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>80</width>
-            <height>50</height>
+            <height>45</height>
            </size>
           </property>
           <property name="font">
@@ -126,7 +126,13 @@
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>40</height>
+            <height>27</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>27</height>
            </size>
           </property>
           <property name="toolTip">
