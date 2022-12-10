@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::MacroDialog *ui;
 
+    void loadSettings();
 };
 
 #endif // MACRODIALOG_H
