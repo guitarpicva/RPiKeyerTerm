@@ -385,5 +385,6 @@ void RPiKeyerTerm::on_actionView_Log_triggered()
     QFile f("logs/RPiKeyerTerm.log");
     if(f.open(QFile::ReadOnly)) {
         ui->receiveTextArea->appendPlainText(f.readAll());
+        ui->receiveTextArea->moveCursor(QTextCursor::End);
     }
 }
