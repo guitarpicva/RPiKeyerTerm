@@ -86,13 +86,13 @@
           <property name="minimumSize">
            <size>
             <width>80</width>
-            <height>60</height>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>80</width>
-            <height>60</height>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
