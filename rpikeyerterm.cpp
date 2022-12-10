@@ -183,6 +183,7 @@ void RPiKeyerTerm::loadSettings()
     ui->sendingSpeedSpinBox->setValue(settings->value("sendingSpeed", 15).toInt());
     QStringList items = settings->value("heardList", "").toStringList();
     ui->heardListComboBox->addItems(items);
+    ui->heardListComboBox->model()->sort(0);
     ui->updateGroupBox->setVisible(settings->value("showUpdate", false).toBool());
     restoreGeometry(settings->value("geometry", "").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
