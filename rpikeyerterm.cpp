@@ -269,11 +269,14 @@ void RPiKeyerTerm::loadMacros()
     }
 }
 
-void RPiKeyerTerm::sendText(const QString tokey)
+void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
 {
-    const int end = tokey.size(); // so when we pop this doesn't change
+    const int end = tokey.size(); // current size so when we send this doesn't change
+    const QString tosend = tokey;
+    tokey = tokey.mid(end); // so more can be added
     ui->receiveTextArea->moveCursor(QTextCursor::End);
     ui->receiveTextArea->insertPlainText("\nSENDING: ");
+    b_doneSending = false; //
     for(int i = 0; i < end; i++) {
         if(b_killTx) {
             b_killTx = false;
@@ -281,7 +284,7 @@ void RPiKeyerTerm::sendText(const QString tokey)
             break;
         }
         keystr.clear();
-        keychar = tokey.at(i);
+        keychar = tosend.at(i);
         ui->receiveTextArea->insertPlainText(keychar); // echo to rx area
         //qApp->processEvents(QEventLoop::ExcludeUserInputEvents); // only update the text area
         qApp->processEvents();
@@ -316,16 +319,16 @@ void RPiKeyerTerm::sendText(const QString tokey)
         }
         QThread::msleep(dit * 3); // wait 3 dit lengths between characters
     }
-
+    b_doneSending = true;
+    ui->sendButton->setEnabled(true);
 }
 
 void RPiKeyerTerm::on_sendButton_clicked()
 {
-    // TODO: might want to put tokey on the heap and append to it here
-    // but that means also perhaps having a PTT step before sending and once finished
-    auto tokey = ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]")); // no line ends in Morse
+    tokey.append(ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]"))); // no line ends in Morse
     //tokey = resolveTextSubstitutions(tokey);
-    sendText(tokey);
+    ui->sendButton->setEnabled(false);
+    sendText();
 }
 
 void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
@@ -354,6 +357,8 @@ void RPiKeyerTerm::on_actionKILL_TX_triggered()
 {
     b_killTx = true;
     gpiod_line_set_value(line, 0); // key off
+    ui->sendButton->setVisible(true);
+    b_doneSending = true;
 }
 
 void RPiKeyerTerm::on_actionTUNE_triggered(bool checked)
@@ -371,7 +376,8 @@ void RPiKeyerTerm::on_delCallButton_clicked()
 
 void RPiKeyerTerm::on_sendCallButton_clicked()
 {
-    sendText(ui->mycallLineEdit->text().trimmed().toUpper());
+    tokey = ui->mycallLineEdit->text().trimmed().toUpper();
+    sendText();
 }
 
 void RPiKeyerTerm::on_actionUpdate_triggered()

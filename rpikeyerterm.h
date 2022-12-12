@@ -54,7 +54,7 @@ private slots:
     void on_actionTUNE_triggered(bool checked);
     void on_delCallButton_clicked();
     void on_sendCallButton_clicked();
-    void sendText(const QString tokey);
+    void sendText();
     void on_actionUpdate_triggered();
     void on_actionView_Log_triggered();
 
@@ -67,6 +67,7 @@ private:
     QChar keychar, kc;
     bool b_keyit = true;
     bool b_killTx = false;
+    bool b_doneSending = true;
     const QString SPACE = " ";
     struct gpiod_chip *chip;
     struct gpiod_line *line;    // key line
