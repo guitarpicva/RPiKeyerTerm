@@ -555,6 +555,14 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Server_Settings"/>
+    <addaction name="actionS_tart_Server"/>
+   </widget>
+   <addaction name="menu_File"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="macroToolBar">
@@ -806,6 +814,19 @@
    </property>
    <property name="toolTip">
     <string>View Log in the rx text area</string>
+   </property>
+  </action>
+  <action name="action_Server_Settings">
+   <property name="text">
+    <string>&amp;Server Settings</string>
+   </property>
+  </action>
+  <action name="actionS_tart_Server">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>S&amp;tart Server</string>
    </property>
   </action>
  </widget>

@@ -10,7 +10,9 @@
 #include <QCloseEvent>
 #include <QMainWindow>
 #include <QSettings>
-
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QTimer>
 #include <QDebug>
 
 QT_BEGIN_NAMESPACE
@@ -57,9 +59,22 @@ private slots:
     void sendText();
     void on_actionUpdate_triggered();
     void on_actionView_Log_triggered();
-
+    void on_action_Server_Settings_triggered();
+    // starting the server starts the TCP server socket for outside data tx/control
+    // and puts the UI into "client" mode, so it does not try to key the radio directly
+    // rather tells the server side to do it (as well as config changes)
+    void on_actionS_tart_Server_triggered(bool checked);
+    void on_newConnection();
+    void on_socketReadyRead();
+    void on_socketTimerTimeout();
 private:
     Ui::RPiKeyerTerm *ui;
+    QTcpServer *server = nullptr;
+    QString s_serverAddress = "127.0.0.1";
+    int i_serverPort = 9888;
+    QTcpSocket *socket = nullptr; // only one!
+    QTimer *socketTimer = nullptr;
+    QByteArray socketBytes;
     MacroDialog *md = nullptr;
     QString mycall = "N0CALL";
     QString mhGrid = "FM16";

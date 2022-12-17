@@ -5,6 +5,8 @@
 
 #include <QDir>
 //#include <QMessageBox>
+#include <QInputDialog>
+#include <QNetworkInterface>
 #include <QThread>
 #include <QDebug>
 
@@ -185,6 +187,8 @@ void RPiKeyerTerm::loadSettings()
     ui->heardListComboBox->addItems(items);
     ui->heardListComboBox->model()->sort(0);
     ui->updateGroupBox->setVisible(settings->value("showUpdate", false).toBool());
+    s_serverAddress = settings->value("serverAddress", "127.0.0.1").toString();
+    i_serverPort = settings->value("serverPort", 9888).toInt();
     restoreGeometry(settings->value("geometry", "").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
 }
@@ -279,6 +283,7 @@ void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
     b_doneSending = false; //
     for(int i = 0; i < end; i++) {
         if(b_killTx) {
+            tokey.clear();// may as well wipe the input buffer too
             b_killTx = false;
             gpiod_line_set_value(line, 0); // key off
             break;
@@ -356,6 +361,7 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
 void RPiKeyerTerm::on_actionKILL_TX_triggered()
 {
     b_killTx = true;
+    tokey.clear(); // clear anything in the tx buffer
     gpiod_line_set_value(line, 0); // key off
     ui->sendButton->setVisible(true);
     b_doneSending = true;
@@ -393,5 +399,103 @@ void RPiKeyerTerm::on_actionView_Log_triggered()
     if(f.open(QFile::ReadOnly)) {
         ui->receiveTextArea->appendPlainText(f.readAll());
         ui->receiveTextArea->moveCursor(QTextCursor::End);
+    }
+}
+
+void RPiKeyerTerm::on_action_Server_Settings_triggered()
+{
+    // first, choose IP address to listen on
+    QStringList items;
+    const QList<QHostAddress> nal = QNetworkInterface::allAddresses();
+    foreach(QHostAddress h, nal) {
+        if(h.toString().startsWith("169.254")) // not link local
+            continue;
+        if(h.toString().contains(":")) // not IPv6
+            continue;
+        items << h.toString();
+    }
+    items.sort();
+    QString chosen = QInputDialog::getItem(this, "Choose IP Address", "Select the IP Address to use for the server.", items);
+    if(chosen.isEmpty()) chosen = "127.0.0.1"; // default to localhost
+    settings->setValue("serverAddress", chosen);
+
+    // second, choose the TCP port to bind
+    int port = QInputDialog::getInt(this, "Set TCP Port", "Set the TCP Port for the Server to bind to.", 9888, 1024, 65535);
+    // any escape should return default of 9888
+    settings->setValue("serverPort", port);
+    // starting the server is done by the action below
+}
+
+void RPiKeyerTerm::on_actionS_tart_Server_triggered(bool checked)
+{
+    qDebug()<<"Start Server..."<<checked;
+    if(socketTimer)
+        socketTimer->stop();
+    else {
+        socketTimer = new QTimer(this);
+        socketTimer->setInterval(20);
+        connect(socketTimer, &QTimer::timeout, this, &RPiKeyerTerm::on_socketTimerTimeout, Qt::UniqueConnection);
+    }
+    // if true, start the server, if false, stop the server
+    if(checked) {
+        if (server)
+        {
+            server->close(); // stop listening
+            disconnect(server, 0, 0, 0);
+        }
+        else
+        {
+            server = new QTcpServer(this);
+        }
+        server->listen(QHostAddress(s_serverAddress), i_serverPort);
+        connect(server, &QTcpServer::newConnection, this, &RPiKeyerTerm::on_newConnection);
+    }
+    else {
+        if(socket) socket->disconnectFromHost();
+        disconnect(socket, 0, 0, 0);
+        if(server) server->close(); // stop listening
+    }
+}
+
+void RPiKeyerTerm::on_newConnection()
+{
+    qDebug()<< "On New Connection...";
+    if (socket) {
+        socket->disconnectFromHost();
+        socket->waitForDisconnected(2000);
+        disconnect(socket, 0, 0, 0);
+    }
+    socket = server->nextPendingConnection();
+    connect(socket, &QTcpSocket::readyRead, this, &RPiKeyerTerm::on_socketReadyRead);
+    socketTimer->start(20);
+}
+
+void RPiKeyerTerm::on_socketReadyRead()
+{
+    socketTimer->stop();
+    qDebug()<<"Socket Ready Read:"<<socket->readAll();
+    socketBytes.append(socket->readAll());
+    socketTimer->start(20);
+}
+
+void RPiKeyerTerm::on_socketTimerTimeout()
+{
+    socketTimer->stop();
+    qDebug()<<"Socket timer timeout...";
+    // process socketBytes delimited on \r, then trimmed
+    const QStringList cmds = QString(socketBytes).split("\r");
+    foreach(QString cmd, cmds) {
+        cmd = cmd.trimmed(); // get rid of any \n's
+        if(cmd.startsWith('#')) {
+            // this is a command string so make changes accordingly
+            qDebug()<<"Cmd String:"<<cmd;
+        }
+        else {
+            // send to the keyer
+            tokey.append(cmd); // no line ends in Morse
+            //tokey = resolveTextSubstitutions(tokey);
+            ui->sendButton->setEnabled(false);
+            sendText();
+        }
     }
 }

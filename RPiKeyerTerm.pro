@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,13 +12,15 @@ SOURCES += \
     logdialog.cpp \
     macrodialog.cpp \
     main.cpp \
-    rpikeyerterm.cpp
+    rpikeyerterm.cpp \
+    scrollingdigitlabel.cpp
 
 HEADERS += \
     alphabet.h \
     logdialog.h \
     macrodialog.h \
-    rpikeyerterm.h
+    rpikeyerterm.h \
+    scrollingdigitlabel.h
 
 FORMS += \
     logdialog.ui \
