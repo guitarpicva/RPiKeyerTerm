@@ -67,14 +67,24 @@ private slots:
     void on_newConnection();
     void on_socketReadyRead();
     void on_socketTimerTimeout();
+    void on_actionStart_Client_triggered(bool checked);
+
+    void on_clientReadyRead();
+    void on_clientTimerTimeout();
+    void on_ditDitButton_clicked();
+
 private:
     Ui::RPiKeyerTerm *ui;
     QTcpServer *server = nullptr;
     QString s_serverAddress = "127.0.0.1";
     int i_serverPort = 9888;
+    QString s_clientHost = "127.0.0.1";
+    int i_clientPort = 9888;
     QTcpSocket *socket = nullptr; // only one!
+    QTcpSocket *clientSocket = nullptr; // only one!
     QTimer *socketTimer = nullptr;
     QByteArray socketBytes;
+    QByteArray clientBytes;
     MacroDialog *md = nullptr;
     QString mycall = "N0CALL";
     QString mhGrid = "FM16";

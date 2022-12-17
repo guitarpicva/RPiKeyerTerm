@@ -6,6 +6,10 @@
 #include <QDir>
 //#include <QMessageBox>
 #include <QInputDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QNetworkInterface>
 #include <QThread>
 #include <QDebug>
@@ -189,6 +193,8 @@ void RPiKeyerTerm::loadSettings()
     ui->updateGroupBox->setVisible(settings->value("showUpdate", false).toBool());
     s_serverAddress = settings->value("serverAddress", "127.0.0.1").toString();
     i_serverPort = settings->value("serverPort", 9888).toInt();
+    s_clientHost = settings->value("clientAddress", "127.0.0.1").toString();
+    i_clientPort = settings->value("clientPort", 9888).toInt();
     restoreGeometry(settings->value("geometry", "").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
 }
@@ -429,6 +435,12 @@ void RPiKeyerTerm::on_action_Server_Settings_triggered()
 void RPiKeyerTerm::on_actionS_tart_Server_triggered(bool checked)
 {
     qDebug()<<"Start Server..."<<checked;
+    // cannot be a server and a client, so stop any client socket
+    if(clientSocket) {
+        clientSocket->disconnectFromHost();
+        disconnect(clientSocket, 0, 0, 0);
+        ui->actionStart_Client->setChecked(false);
+    }
     if(socketTimer)
         socketTimer->stop();
     else {
@@ -491,6 +503,9 @@ void RPiKeyerTerm::on_socketTimerTimeout()
         if(cmd.startsWith('#')) {
             // this is a command string so make changes accordingly
             qDebug()<<"Cmd String:"<<cmd;
+            if(cmd.contains("#CFG")) {
+                // send the full config as JSON
+            }
         }
         else {
             qDebug()<<"Send to transmit:"<<cmd;
@@ -501,4 +516,62 @@ void RPiKeyerTerm::on_socketTimerTimeout()
             sendText();
         }
     }
+}
+
+void RPiKeyerTerm::on_actionStart_Client_triggered(bool checked)
+{
+    if(checked) {
+        if(clientSocket) {
+            clientSocket->disconnectFromHost();
+            disconnect(clientSocket, 0, 0, 0);
+        }
+        else {
+            clientSocket = new QTcpSocket(this);
+            clientSocket->connectToHost(s_clientHost, i_clientPort);
+        }
+        connect(clientSocket, &QTcpSocket::readyRead, this, &RPiKeyerTerm::on_clientReadyRead);
+        connect(socketTimer, &QTimer::timeout, this, &RPiKeyerTerm::on_clientTimerTimeout);
+    }
+    else {
+        clientSocket->disconnectFromHost();
+        disconnect(clientSocket, 0, 0, 0);
+    }
+}
+
+void RPiKeyerTerm::on_clientReadyRead()
+{
+    socketTimer->stop();
+    //qDebug()<<"Socket Ready Read:"<<socket->readAll();
+    clientBytes.append(clientSocket->readAll());
+    socketTimer->start(20);
+}
+
+void RPiKeyerTerm::on_clientTimerTimeout()
+{
+    socketTimer->stop(); // clientReadyRead turns it back on
+    // process socketBytes delimited on \n, then trimmed
+    QString cmdlist = clientBytes;
+    cmdlist.remove("\r");
+    const QStringList cmds = cmdlist.split("\n", Qt::SkipEmptyParts);
+    qDebug()<<"Client Socket timer timeout..."<<cmdlist<<cmds;
+    clientBytes.clear();
+    foreach(QString cmd, cmds) {
+        if(cmd.startsWith('#')) {
+            // this is a command string so make changes accordingly
+            qDebug()<<"Cmd String:"<<cmd;
+            if(cmd.contains("#CFG")) {
+                // send the full config as JSON
+            }
+        }
+        else {
+            qDebug()<<"Send to transmit:"<<cmd;
+            // send to the keyer
+        }
+    }
+}
+
+void RPiKeyerTerm::on_ditDitButton_clicked()
+{
+    tokey = "EE";
+    sendText();
 }
