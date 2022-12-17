@@ -467,30 +467,33 @@ void RPiKeyerTerm::on_newConnection()
     }
     socket = server->nextPendingConnection();
     connect(socket, &QTcpSocket::readyRead, this, &RPiKeyerTerm::on_socketReadyRead);
-    socketTimer->start(20);
+    //socketTimer->start(20);
 }
 
 void RPiKeyerTerm::on_socketReadyRead()
 {
     socketTimer->stop();
-    qDebug()<<"Socket Ready Read:"<<socket->readAll();
+    //qDebug()<<"Socket Ready Read:"<<socket->readAll();
     socketBytes.append(socket->readAll());
     socketTimer->start(20);
 }
 
 void RPiKeyerTerm::on_socketTimerTimeout()
 {
-    socketTimer->stop();
-    qDebug()<<"Socket timer timeout...";
-    // process socketBytes delimited on \r, then trimmed
-    const QStringList cmds = QString(socketBytes).split("\r");
+    socketTimer->stop(); // readyRead turns it back on
+    // process socketBytes delimited on \n, then trimmed
+    QString cmdlist = socketBytes;
+    cmdlist.remove("\r");
+    const QStringList cmds = cmdlist.split("\n", Qt::SkipEmptyParts);
+    qDebug()<<"Socket timer timeout..."<<cmdlist<<cmds;
+    socketBytes.clear();
     foreach(QString cmd, cmds) {
-        cmd = cmd.trimmed(); // get rid of any \n's
         if(cmd.startsWith('#')) {
             // this is a command string so make changes accordingly
             qDebug()<<"Cmd String:"<<cmd;
         }
         else {
+            qDebug()<<"Send to transmit:"<<cmd;
             // send to the keyer
             tokey.append(cmd); // no line ends in Morse
             //tokey = resolveTextSubstitutions(tokey);
