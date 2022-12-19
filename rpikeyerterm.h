@@ -57,6 +57,7 @@ private slots:
     void on_delCallButton_clicked();
     void on_sendCallButton_clicked();
     void sendText();
+    void sendTextRemote(QString tokey);
     void on_actionUpdate_triggered();
     void on_actionView_Log_triggered();
     void on_action_Server_Settings_triggered();
@@ -68,10 +69,10 @@ private slots:
     void on_socketReadyRead();
     void on_socketTimerTimeout();
     void on_actionStart_Client_triggered(bool checked);
-
     void on_clientReadyRead();
     void on_clientTimerTimeout();
     void on_ditDitButton_clicked();
+    void on_actionClient_Settings_triggered();
 
 private:
     Ui::RPiKeyerTerm *ui;
@@ -90,6 +91,7 @@ private:
     QString mhGrid = "FM16";
     QString tokey, keystr;
     QChar keychar, kc;
+    bool b_clientMode = false;
     bool b_keyit = true;
     bool b_killTx = false;
     bool b_doneSending = true;

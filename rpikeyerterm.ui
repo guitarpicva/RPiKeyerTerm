@@ -117,11 +117,20 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>27</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>40</width>
-            <height>16777215</height>
+            <height>27</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send a dit-dit now&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="text">
            <string>. .</string>
@@ -592,6 +601,7 @@
     </property>
     <addaction name="action_Server_Settings"/>
     <addaction name="actionS_tart_Server"/>
+    <addaction name="actionClient_Settings"/>
     <addaction name="actionStart_Client"/>
    </widget>
    <addaction name="menu_File"/>
@@ -867,6 +877,11 @@
    </property>
    <property name="text">
     <string>Start &amp;Client</string>
+   </property>
+  </action>
+  <action name="actionClient_Settings">
+   <property name="text">
+    <string>Client Settings</string>
    </property>
   </action>
  </widget>

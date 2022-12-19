@@ -193,7 +193,7 @@ void RPiKeyerTerm::loadSettings()
     ui->updateGroupBox->setVisible(settings->value("showUpdate", false).toBool());
     s_serverAddress = settings->value("serverAddress", "127.0.0.1").toString();
     i_serverPort = settings->value("serverPort", 9888).toInt();
-    s_clientHost = settings->value("clientAddress", "127.0.0.1").toString();
+    s_clientHost = settings->value("clientHost", "127.0.0.1").toString();
     i_clientPort = settings->value("clientPort", 9888).toInt();
     restoreGeometry(settings->value("geometry", "").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
@@ -281,6 +281,7 @@ void RPiKeyerTerm::loadMacros()
 
 void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
 {
+    qDebug()<<"Send Text:"<<socket<<server;
     const int end = tokey.size(); // current size so when we send this doesn't change
     const QString tosend = tokey;
     tokey = tokey.mid(end); // so more can be added
@@ -297,6 +298,10 @@ void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
         keystr.clear();
         keychar = tosend.at(i);
         ui->receiveTextArea->insertPlainText(keychar); // echo to rx area
+        if(socket) { // tell the client that this text has been sent
+            socket->write(QString(tosend[i]).toLatin1());
+            socket->flush();
+        }
         //qApp->processEvents(QEventLoop::ExcludeUserInputEvents); // only update the text area
         qApp->processEvents();
         keystr = alphabet[keychar.cell()]; // look up the keying pattern by ASCII char value
@@ -334,18 +339,41 @@ void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
     ui->sendButton->setEnabled(true);
 }
 
+void RPiKeyerTerm::sendTextRemote(QString tokey)
+{
+    qDebug()<<"sendTextRemote:"<<tokey;
+    if(clientSocket && clientSocket->state() == QTcpSocket::ConnectedState) {
+        ui->receiveTextArea->moveCursor(QTextCursor::End);
+        ui->receiveTextArea->insertPlainText("\nSENDING: ");
+        clientSocket->write(tokey.toLatin1());
+        clientSocket->flush();
+    }
+    b_doneSending = true;
+    ui->sendButton->setEnabled(true);
+}
+
 void RPiKeyerTerm::on_sendButton_clicked()
 {
     tokey.append(ui->sendTextArea->toPlainText().trimmed().toUpper().remove(QRegularExpression("[\r\n]"))); // no line ends in Morse
     //tokey = resolveTextSubstitutions(tokey);
     ui->sendButton->setEnabled(false);
-    sendText();
+    if(b_clientMode)
+        sendTextRemote(tokey);
+    else
+        sendText();
 }
 
 void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
 {
+    qDebug()<<"speed value:"<<arg1;
     if(arg1 < 5) arg1 = 5; // min speed is 5 WPM
     dit = (int) 1200/arg1;
+    if(clientSocket) { // tell connected client
+        clientSocket->write("@" + QString::number(arg1).toLatin1() + "\n");
+    }
+    else if(socket) {
+        socket->write("@" + QString::number(arg1).toLatin1() + "\n");
+    }
 }
 
 void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
@@ -369,8 +397,9 @@ void RPiKeyerTerm::on_actionKILL_TX_triggered()
     b_killTx = true;
     tokey.clear(); // clear anything in the tx buffer
     gpiod_line_set_value(line, 0); // key off
-    ui->sendButton->setVisible(true);
+    ui->sendButton->setEnabled(true);
     b_doneSending = true;
+
 }
 
 void RPiKeyerTerm::on_actionTUNE_triggered(bool checked)
@@ -389,7 +418,12 @@ void RPiKeyerTerm::on_delCallButton_clicked()
 void RPiKeyerTerm::on_sendCallButton_clicked()
 {
     tokey = ui->mycallLineEdit->text().trimmed().toUpper();
-    sendText();
+    if(b_clientMode) {
+        qDebug()<<"Sending to remote server...";
+        sendTextRemote(tokey);
+    }
+    else
+        sendText();
 }
 
 void RPiKeyerTerm::on_actionUpdate_triggered()
@@ -424,11 +458,13 @@ void RPiKeyerTerm::on_action_Server_Settings_triggered()
     QString chosen = QInputDialog::getItem(this, "Choose IP Address", "Select the IP Address to use for the server.", items);
     if(chosen.isEmpty()) chosen = "127.0.0.1"; // default to localhost
     settings->setValue("serverAddress", chosen);
+    s_serverAddress = chosen;
 
     // second, choose the TCP port to bind
     int port = QInputDialog::getInt(this, "Set TCP Port", "Set the TCP Port for the Server to bind to.", 9888, 1024, 65535);
     // any escape should return default of 9888
     settings->setValue("serverPort", port);
+    i_serverPort = port;
     // starting the server is done by the action below
 }
 
@@ -473,13 +509,14 @@ void RPiKeyerTerm::on_newConnection()
 {
     qDebug()<< "On New Connection...";
     if (socket) {
-        socket->disconnectFromHost();
-        socket->waitForDisconnected(2000);
+        if(socket->state() == QTcpSocket::ConnectedState) {
+            socket->disconnectFromHost();
+            socket->waitForDisconnected(2000);
+        }
         disconnect(socket, 0, 0, 0);
     }
     socket = server->nextPendingConnection();
     connect(socket, &QTcpSocket::readyRead, this, &RPiKeyerTerm::on_socketReadyRead);
-    //socketTimer->start(20);
 }
 
 void RPiKeyerTerm::on_socketReadyRead()
@@ -507,6 +544,9 @@ void RPiKeyerTerm::on_socketTimerTimeout()
                 // send the full config as JSON
             }
         }
+        else if(cmd.startsWith('@')) {
+            ui->sendingSpeedSpinBox->setValue(cmd.mid(1).toInt());
+        }
         else {
             qDebug()<<"Send to transmit:"<<cmd;
             // send to the keyer
@@ -521,18 +561,27 @@ void RPiKeyerTerm::on_socketTimerTimeout()
 void RPiKeyerTerm::on_actionStart_Client_triggered(bool checked)
 {
     if(checked) {
+        b_clientMode = true;
         if(clientSocket) {
-            clientSocket->disconnectFromHost();
+            if(clientSocket->state() == QTcpSocket::ConnectedState) {
+                clientSocket->disconnectFromHost();
+            }
             disconnect(clientSocket, 0, 0, 0);
+
         }
         else {
             clientSocket = new QTcpSocket(this);
             clientSocket->connectToHost(s_clientHost, i_clientPort);
+            qDebug()<<"Connecting to:"<<s_clientHost<<i_clientPort;
         }
         connect(clientSocket, &QTcpSocket::readyRead, this, &RPiKeyerTerm::on_clientReadyRead);
+        if(!socketTimer)
+            socketTimer = new QTimer(this);
+        socketTimer->setInterval(20);
         connect(socketTimer, &QTimer::timeout, this, &RPiKeyerTerm::on_clientTimerTimeout);
     }
     else {
+        b_clientMode = false;
         clientSocket->disconnectFromHost();
         disconnect(clientSocket, 0, 0, 0);
     }
@@ -558,13 +607,24 @@ void RPiKeyerTerm::on_clientTimerTimeout()
     foreach(QString cmd, cmds) {
         if(cmd.startsWith('#')) {
             // this is a command string so make changes accordingly
-            qDebug()<<"Cmd String:"<<cmd;
+            qDebug()<<"Client Cmd String:"<<cmd;
             if(cmd.contains("#CFG")) {
                 // send the full config as JSON
             }
         }
+        else if(cmd.startsWith('@')) {
+            // speed change
+            ui->sendingSpeedSpinBox->blockSignals(true);
+            ui->sendingSpeedSpinBox->setValue(cmd.mid(1).toInt());
+            ui->sendingSpeedSpinBox->blockSignals(false);
+        }
         else {
-            qDebug()<<"Send to transmit:"<<cmd;
+            // since CW is reported sent one char at a time
+            // all other updates to the rx text must include appropriate
+            // line ends to format text otherwise.
+            qDebug()<<"Transmitted:"<<cmd;
+            ui->receiveTextArea->moveCursor(QTextCursor::End);
+            ui->receiveTextArea->insertPlainText(cmd);
             // send to the keyer
         }
     }
@@ -573,5 +633,35 @@ void RPiKeyerTerm::on_clientTimerTimeout()
 void RPiKeyerTerm::on_ditDitButton_clicked()
 {
     tokey = "EE";
-    sendText();
+    if(b_clientMode)
+        sendTextRemote(tokey);
+    else
+        sendText();
+}
+
+void RPiKeyerTerm::on_actionClient_Settings_triggered()
+{
+
+    // first, choose IP address to connect to
+    QStringList items;
+    const QList<QHostAddress> nal = QNetworkInterface::allAddresses();
+    foreach(QHostAddress h, nal) {
+        if(h.toString().startsWith("169.254")) // not link local
+            continue;
+        if(h.toString().contains(":")) // not IPv6
+            continue;
+        items << h.toString();
+    }
+    items.sort();
+    QString chosen = QInputDialog::getItem(this, "Choose IP Address", "Select the IP Address to use for the server.", items);
+    if(chosen.isEmpty()) chosen = "127.0.0.1"; // default to localhost
+    settings->setValue("clientHost", chosen);
+    s_clientHost = chosen;
+
+    // second, choose the TCP port to bind
+    int port = QInputDialog::getInt(this, "Set TCP Port", "Set the TCP Port for the Server to bind to.", 9888, 1024, 65535);
+    // any escape should return default of 9888
+    settings->setValue("clientPort", port);
+    i_clientPort = port;
+    // connectint to the server is done by the action below
 }
