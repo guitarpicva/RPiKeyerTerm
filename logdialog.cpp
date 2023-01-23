@@ -30,12 +30,9 @@ void LogDialog::setCurrentValues()
     ui->dtOnDateTimeEdit->setDateTime(now);    
 }
 
-void LogDialog::setFrequency(const double freq)
+void LogDialog::setFrequency(const QString freq)
 {
-    if(freq == 0.0) {
-        return;
-    }
-    ui->logFrequencySpinBox->setValue((int) freq * 1000);
+    ui->logFrequencyLineEdit->setText(freq);
 }
 
 void LogDialog::setPower(const int power)
@@ -83,7 +80,7 @@ void LogDialog::on_logSaveButton_clicked()
     QString out = ui->dtOnDateTimeEdit->dateTime().toString("yyyy-MM-dd").append(DELIM).append(ui->dtOnDateTimeEdit->dateTime().toString("hh:mm:ss")).append(DELIM);
     out.append(ui->dtOffDateTimeEdit->dateTime().toString("yyyy-MM-dd")).append(DELIM).append(ui->dtOffDateTimeEdit->dateTime().toString("hh:mm:ss")).append(DELIM);
     out.append(ui->logCallLineEdit->text().trimmed().toUpper().replace(","," ")).append(DELIM).append(ui->logMHLineEdit->text().trimmed().replace(","," ")).append(DELIM);
-    out.append(ui->logFrequencySpinBox->text()).append(DELIM).append(ui->logModeComboBox->currentText().trimmed().toUpper().replace(","," ")).append(DELIM);
+    out.append(ui->logFrequencyLineEdit->text()).append(DELIM).append(ui->logModeComboBox->currentText().trimmed().toUpper().replace(","," ")).append(DELIM);
     out.append(ui->logSentReportLineEdit->text().trimmed().replace(","," ")).append(DELIM).append(ui->logReceivedReportLineEdit->text().trimmed().replace(","," ")).append(DELIM);
     out.append(ui->logPowerSpinBox->text()).append(DELIM).append(ui->logCommentLineEdit->text().trimmed().replace(","," ")).append(DELIM);
     out.append(ui->logOpNameLineEdit->text().trimmed().replace(","," "));
@@ -92,7 +89,8 @@ void LogDialog::on_logSaveButton_clicked()
         logfile.write("\r\n");
         logfile.close();
     }
-    close();
+//    close();
+    emit logSaved();
 }
 
 void LogDialog::on_logClearButton_clicked()
@@ -108,5 +106,6 @@ void LogDialog::on_logClearButton_clicked()
 
 void LogDialog::on_closeButton_clicked()
 {
+    emit logSaved(); // just to reset the LOG action button in the main UI
     close();
 }

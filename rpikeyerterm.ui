@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
+    <width>930</width>
     <height>678</height>
    </rect>
   </property>
@@ -295,7 +295,7 @@
           <bool>true</bool>
          </property>
          <property name="placeholderText">
-          <string>Type the text you recieve here and click Update Conv to add it to the trace above.</string>
+          <string>Type the text you recieve here and click Update to add it to the trace above.</string>
          </property>
         </widget>
        </item>
@@ -364,13 +364,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="8">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>WPM</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="7">
         <widget class="QLineEdit" name="mycallLineEdit">
          <property name="sizePolicy">
@@ -400,22 +393,6 @@
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>My Call</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="9">
-        <widget class="QSpinBox" name="sendingSpeedSpinBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimum">
-          <number>5</number>
-         </property>
-         <property name="value">
-          <number>15</number>
          </property>
         </widget>
        </item>
@@ -453,19 +430,6 @@
           <enum>QComboBox::AdjustToContents</enum>
          </property>
         </widget>
-       </item>
-       <item row="0" column="11">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>3</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="1" column="3">
         <widget class="QSpinBox" name="pwrSpinBox">
@@ -577,28 +541,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QDoubleSpinBox" name="freqSpinBox">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use this for logging purposes.  Set to your current operating frequency in kHz&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="decimals">
-          <number>3</number>
-         </property>
-         <property name="minimum">
-          <double>1800.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>2999900.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>100.000000000000000</double>
-         </property>
-         <property name="value">
-          <double>14035.000000000000000</double>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="delCallButton">
          <property name="sizePolicy">
@@ -632,7 +574,40 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="10">
+       <item row="1" column="11">
+        <widget class="QSpinBox" name="sendingSpeedSpinBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="value">
+          <number>15</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="10" alignment="Qt::AlignRight">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>WPM</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="8">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>My Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="9">
+        <widget class="QLineEdit" name="myNameLineEdit"/>
+       </item>
+       <item row="0" column="10" colspan="2">
         <widget class="QPushButton" name="mapButton">
          <property name="font">
           <font>
@@ -642,8 +617,88 @@
            <bold>false</bold>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open google maps to show this location (Maidenhead) if internet available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>MAP</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="bandComboBox">
+         <property name="editable">
+          <bool>false</bool>
+         </property>
+         <property name="currentIndex">
+          <number>3</number>
+         </property>
+         <item>
+          <property name="text">
+           <string>160</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>80</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>60</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>40</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>30</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>20</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>17</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>15</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>12</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>10</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Band</string>
          </property>
         </widget>
        </item>
@@ -657,7 +712,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>880</width>
+     <width>930</width>
      <height>23</height>
     </rect>
    </property>
@@ -876,6 +931,9 @@
    </property>
   </action>
   <action name="actionLOG">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>LOG</string>
    </property>
@@ -958,13 +1016,11 @@
   <tabstop>rstOutLineEdit</tabstop>
   <tabstop>destGridLineEdit</tabstop>
   <tabstop>mapButton</tabstop>
-  <tabstop>freqSpinBox</tabstop>
   <tabstop>pwrSpinBox</tabstop>
   <tabstop>mhGridLineEdit</tabstop>
   <tabstop>mycallLineEdit</tabstop>
+  <tabstop>myNameLineEdit</tabstop>
   <tabstop>sendingSpeedSpinBox</tabstop>
-  <tabstop>receiveTextClearButton</tabstop>
-  <tabstop>updateClearButton</tabstop>
   <tabstop>delCallButton</tabstop>
   <tabstop>sendClearButton</tabstop>
   <tabstop>sendTextArea</tabstop>
@@ -974,6 +1030,8 @@
   <tabstop>ditDitButton</tabstop>
   <tabstop>conversationTextEdit</tabstop>
   <tabstop>receiveTextArea</tabstop>
+  <tabstop>receiveTextClearButton</tabstop>
+  <tabstop>updateClearButton</tabstop>
  </tabstops>
  <resources>
   <include location="qresource.qrc"/>

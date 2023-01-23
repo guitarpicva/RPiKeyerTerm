@@ -4,7 +4,7 @@
 #define GPIO21 21u
 
 #include "gpiod.hpp"
-
+#include "logdialog.h"
 #include "macrodialog.h"
 
 #include <QCloseEvent>
@@ -77,6 +77,7 @@ private slots:
 
 private:
     Ui::RPiKeyerTerm *ui;
+    LogDialog *ld = nullptr;
     QTcpServer *server = nullptr;
     QString s_serverAddress = "127.0.0.1";
     int i_serverPort = 9888;

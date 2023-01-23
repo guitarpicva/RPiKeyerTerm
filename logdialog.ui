@@ -106,22 +106,6 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QSpinBox" name="logFrequencySpinBox">
-     <property name="minimum">
-      <number>100000</number>
-     </property>
-     <property name="maximum">
-      <number>29999999</number>
-     </property>
-     <property name="singleStep">
-      <number>100</number>
-     </property>
-     <property name="value">
-      <number>14035000</number>
-     </property>
-    </widget>
-   </item>
    <item row="7" column="0">
     <widget class="QLineEdit" name="logOpNameLineEdit">
      <property name="maxLength">
@@ -263,13 +247,15 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="0">
+    <widget class="QLineEdit" name="logFrequencyLineEdit"/>
+   </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>dtOnDateTimeEdit</tabstop>
   <tabstop>dtOffDateTimeEdit</tabstop>
   <tabstop>logCallLineEdit</tabstop>
-  <tabstop>logFrequencySpinBox</tabstop>
   <tabstop>logModeComboBox</tabstop>
   <tabstop>logMHLineEdit</tabstop>
   <tabstop>logSentReportLineEdit</tabstop>

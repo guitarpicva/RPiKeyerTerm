@@ -1,7 +1,6 @@
 #include "rpikeyerterm.h"
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
-#include "logdialog.h"
 #include "maidenhead.h"
 
 #include <QDesktopServices>
@@ -69,6 +68,9 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
         if(toSend.contains("{CS}")) {
             out = toSend.replace("{CS}", ui->mycallLineEdit->text().trimmed().toUpper());
         }
+        if(toSend.contains("{CN}")) {
+            out = toSend.replace("{CN}", ui->myNameLineEdit->text().trimmed().toUpper());
+        }
         if(toSend.contains("{DS}")) {
             tmp = ui->heardListComboBox->currentText();
             //qDebug()<<"DS:"<<tmp;
@@ -99,7 +101,7 @@ QString RPiKeyerTerm::resolveTextSubstitutions(QString toSend)
             out = toSend.replace("{PO}", tmp);
         }
         if(toSend.contains("{FR}")) {
-            tmp = ui->freqSpinBox->text();
+            tmp = ui->bandComboBox->currentText();
             out = toSend.replace("{FR}", tmp.mid(0, tmp.indexOf(".")));
         }
     }
@@ -185,6 +187,7 @@ void RPiKeyerTerm::on_updateButton_clicked()
 
 void RPiKeyerTerm::loadSettings()
 {
+    ui->myNameLineEdit->setText(settings->value("myname", "NONAME").toString());
     mycall = settings->value("mycall", "N0CALL").toString();
     ui->mycallLineEdit->setText(mycall);
     ui->mhGridLineEdit->setText(settings->value("mygrid", "FM00").toString());
@@ -203,6 +206,7 @@ void RPiKeyerTerm::loadSettings()
 
 void RPiKeyerTerm::saveSettings()
 {    
+    settings->setValue("myname", ui->myNameLineEdit->text().trimmed().toUpper());
     settings->setValue("mycall", ui->mycallLineEdit->text().trimmed().toUpper());
     settings->setValue("mygrid", ui->mhGridLineEdit->text().trimmed().toUpper());
     settings->setValue("sendingSpeed", ui->sendingSpeedSpinBox->value());
@@ -367,7 +371,7 @@ void RPiKeyerTerm::on_sendButton_clicked()
 
 void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
 {
-    qDebug()<<"speed value:"<<arg1;
+    //qDebug()<<"speed value:"<<arg1;
     if(arg1 < 5) arg1 = 5; // min speed is 5 WPM
     dit = (int) 1200/arg1;
     if(clientSocket) { // tell connected client
@@ -381,17 +385,22 @@ void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
 void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
 {
     // do log dialog
-    qDebug()<<checked;
-    LogDialog *ld = new LogDialog(this);
-    ld->setCurrentValues();
-    ld->setFrequency(ui->freqSpinBox->value());
-    ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
-    ld->setOpName(ui->opNameLineEdit->text().trimmed());
-    ld->setPower(ui->pwrSpinBox->value());
-    ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
-    ld->setRemoteLoc(ui->destGridLineEdit->text().trimmed());
-    ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
-    ld->show();
+    if(checked) {
+        if(!ld) {
+            ld = new LogDialog(this);
+            connect(ld, &LogDialog::logSaved, this, [=]{ui->actionLOG->setChecked(false);});
+        }
+        ld->setCurrentValues();
+        ld->setFrequency(ui->bandComboBox->currentText());
+        ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
+        ld->setOpName(ui->opNameLineEdit->text().trimmed());
+        ld->setPower(ui->pwrSpinBox->value());
+        ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
+        ld->setRemoteLoc(ui->destGridLineEdit->text().trimmed());
+        ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
+        ld->show();
+        ld->raise();
+    }
 }
 
 void RPiKeyerTerm::on_actionKILL_TX_triggered()
