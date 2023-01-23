@@ -73,6 +73,7 @@ private slots:
     void on_clientTimerTimeout();
     void on_ditDitButton_clicked();
     void on_actionClient_Settings_triggered();
+    void on_mapButton_clicked();
 
 private:
     Ui::RPiKeyerTerm *ui;

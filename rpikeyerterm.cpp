@@ -2,7 +2,9 @@
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
 #include "logdialog.h"
+#include "maidenhead.h"
 
+#include <QDesktopServices>
 #include <QDir>
 //#include <QMessageBox>
 #include <QInputDialog>
@@ -664,4 +666,20 @@ void RPiKeyerTerm::on_actionClient_Settings_triggered()
     settings->setValue("clientPort", port);
     i_clientPort = port;
     // connectint to the server is done by the action below
+}
+
+void RPiKeyerTerm::on_mapButton_clicked()
+{
+    QString val = ui->destGridLineEdit->text().trimmed();
+    if(val.length() > 3 && val.contains(QRegularExpression("^[A-Ra-r]{2,2}[0-9]{2,2}"))) {
+        // use the MH grid to send coordinates to Google Maps
+        Maidenhead mh;
+        QPair<double, double> spot = mh.mh2ll(ui->destGridLineEdit->text().trimmed());
+        if(spot.first)
+            QDesktopServices::openUrl(QUrl("https://maps.google.com/maps/@" +
+                                           QString::number(spot.first)
+                                           + ","
+                                               + QString::number(spot.second)
+                                           + ",11z"));
+    }
 }

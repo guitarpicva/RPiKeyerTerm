@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>794</width>
+    <width>880</width>
     <height>678</height>
    </rect>
   </property>
@@ -46,10 +46,22 @@
          <number>0</number>
         </property>
         <item row="0" column="0">
-         <widget class="QPlainTextEdit" name="receiveTextArea"/>
+         <widget class="QPlainTextEdit" name="receiveTextArea">
+          <property name="tabChangesFocus">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="receiveTextClearButton">
+          <property name="font">
+           <font>
+            <family>DejaVu Sans</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Clear</string>
           </property>
@@ -94,6 +106,14 @@
             <height>27</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>DejaVu Sans</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send only my call sign now.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -104,6 +124,9 @@
         </item>
         <item row="0" column="0" rowspan="3">
          <widget class="QPlainTextEdit" name="sendTextArea">
+          <property name="tabChangesFocus">
+           <bool>true</bool>
+          </property>
           <property name="placeholderText">
            <string>Type the text to send and click SEND or Ctrl + Enter</string>
           </property>
@@ -128,6 +151,14 @@
             <width>40</width>
             <height>27</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>DejaVu Sans</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send a dit-dit now&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -160,7 +191,7 @@
           <property name="font">
            <font>
             <family>PibotoLt</family>
-            <pointsize>18</pointsize>
+            <pointsize>19</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -178,6 +209,14 @@
         </item>
         <item row="2" column="1" colspan="2">
          <widget class="QPushButton" name="sendClearButton">
+          <property name="font">
+           <font>
+            <family>DejaVu Sans</family>
+            <pointsize>11</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Clear</string>
           </property>
@@ -210,6 +249,7 @@
          <property name="font">
           <font>
            <family>DejaVu Sans</family>
+           <pointsize>11</pointsize>
            <weight>50</weight>
            <bold>false</bold>
           </font>
@@ -230,6 +270,14 @@
        </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="updateClearButton">
+         <property name="font">
+          <font>
+           <family>DejaVu Sans</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Clear</string>
          </property>
@@ -242,6 +290,9 @@
            <width>16777215</width>
            <height>125</height>
           </size>
+         </property>
+         <property name="tabChangesFocus">
+          <bool>true</bool>
          </property>
          <property name="placeholderText">
           <string>Type the text you recieve here and click Update Conv to add it to the trace above.</string>
@@ -269,85 +320,19 @@
        <property name="bottomMargin">
         <number>3</number>
        </property>
-       <item row="0" column="10">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>3</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <widget class="QPushButton" name="delCallButton">
+       <item row="0" column="2" colspan="2">
+        <widget class="QLineEdit" name="opNameLineEdit">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>24</width>
-           <height>24</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>24</width>
-           <height>24</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <family>DejaVu Sans</family>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>X</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>RST Out</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>RST In</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="9">
-        <widget class="QLineEdit" name="destGridLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>75</width>
-           <height>16777215</height>
-          </size>
          </property>
          <property name="toolTip">
-          <string>Other station's MH grid</string>
+          <string>Other operator name {OP}</string>
          </property>
-         <property name="maxLength">
-          <number>32</number>
+         <property name="placeholderText">
+          <string>Op Name</string>
          </property>
         </widget>
        </item>
@@ -379,19 +364,10 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2" colspan="2">
-        <widget class="QLineEdit" name="opNameLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="toolTip">
-          <string>Other operator name {OP}</string>
-         </property>
-         <property name="placeholderText">
-          <string>Op Name</string>
+       <item row="1" column="8">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>WPM</string>
          </property>
         </widget>
        </item>
@@ -427,20 +403,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>PWR Out</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="8">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Loc</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="9">
         <widget class="QSpinBox" name="sendingSpeedSpinBox">
          <property name="sizePolicy">
@@ -457,67 +419,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="5">
-        <widget class="QLineEdit" name="mhGridLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>75</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Maidenhead (or other) grid reference {MH}</string>
-         </property>
-         <property name="maxLength">
-          <number>32</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <widget class="QLineEdit" name="rstOutLineEdit">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>65</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>65</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Sent signal report</string>
-         </property>
-         <property name="maxLength">
-          <number>3</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4" alignment="Qt::AlignRight">
-        <widget class="QLabel" name="label">
+       <item row="0" column="6">
+        <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>My Loc</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="8">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>WPM</string>
+          <string>RST Out</string>
          </property>
         </widget>
        </item>
@@ -549,6 +454,129 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="11">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>3</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="3">
+        <widget class="QSpinBox" name="pwrSpinBox">
+         <property name="minimum">
+          <number>5</number>
+         </property>
+         <property name="value">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Loc</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLineEdit" name="rstOutLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>65</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>65</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Sent signal report</string>
+         </property>
+         <property name="maxLength">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QLineEdit" name="mhGridLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Maidenhead (or other) grid reference {MH}</string>
+         </property>
+         <property name="maxLength">
+          <number>32</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="9">
+        <widget class="QLineEdit" name="destGridLineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>75</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Other station's MH grid</string>
+         </property>
+         <property name="maxLength">
+          <number>32</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>RST In</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4" alignment="Qt::AlignRight">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>My Loc</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>PWR Out</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0" colspan="2">
         <widget class="QDoubleSpinBox" name="freqSpinBox">
          <property name="toolTip">
@@ -571,13 +599,51 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="3">
-        <widget class="QSpinBox" name="pwrSpinBox">
-         <property name="minimum">
-          <number>5</number>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="delCallButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="value">
-          <number>5</number>
+         <property name="minimumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>DejaVu Sans</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="10">
+        <widget class="QPushButton" name="mapButton">
+         <property name="font">
+          <font>
+           <family>DejaVu Sans</family>
+           <pointsize>11</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>MAP</string>
          </property>
         </widget>
        </item>
@@ -591,7 +657,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>794</width>
+     <width>880</width>
      <height>23</height>
     </rect>
    </property>
@@ -891,12 +957,12 @@
   <tabstop>rstInLineEdit</tabstop>
   <tabstop>rstOutLineEdit</tabstop>
   <tabstop>destGridLineEdit</tabstop>
+  <tabstop>mapButton</tabstop>
+  <tabstop>freqSpinBox</tabstop>
   <tabstop>pwrSpinBox</tabstop>
   <tabstop>mhGridLineEdit</tabstop>
   <tabstop>mycallLineEdit</tabstop>
   <tabstop>sendingSpeedSpinBox</tabstop>
-  <tabstop>receiveTextArea</tabstop>
-  <tabstop>conversationTextEdit</tabstop>
   <tabstop>receiveTextClearButton</tabstop>
   <tabstop>updateClearButton</tabstop>
   <tabstop>delCallButton</tabstop>
@@ -905,6 +971,9 @@
   <tabstop>sendButton</tabstop>
   <tabstop>updateButton</tabstop>
   <tabstop>sendCallButton</tabstop>
+  <tabstop>ditDitButton</tabstop>
+  <tabstop>conversationTextEdit</tabstop>
+  <tabstop>receiveTextArea</tabstop>
  </tabstops>
  <resources>
   <include location="qresource.qrc"/>

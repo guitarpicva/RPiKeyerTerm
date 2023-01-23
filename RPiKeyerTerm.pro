@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     logdialog.cpp \
     macrodialog.cpp \
+    maidenhead.cpp \
     main.cpp \
     rpikeyerterm.cpp \
     scrollingdigitlabel.cpp
@@ -19,6 +20,7 @@ HEADERS += \
     alphabet.h \
     logdialog.h \
     macrodialog.h \
+    maidenhead.h \
     rpikeyerterm.h \
     scrollingdigitlabel.h
 
