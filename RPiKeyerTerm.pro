@@ -40,7 +40,8 @@ RESOURCES += \
     qresource.qrc
 
 DISTFILES += \
-    README.md
+    README.md \
+    RPiKeyerTerm.jpg
 
 unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 
