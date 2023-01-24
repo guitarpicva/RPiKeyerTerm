@@ -90,7 +90,7 @@ void LogDialog::on_logSaveButton_clicked()
         logfile.close();
     }
 //    close();
-    emit logSaved();
+    emit logSaved(out);
 }
 
 void LogDialog::on_logClearButton_clicked()
@@ -106,6 +106,6 @@ void LogDialog::on_logClearButton_clicked()
 
 void LogDialog::on_closeButton_clicked()
 {
-    emit logSaved(); // just to reset the LOG action button in the main UI
+    emit logSaved(""); // just to reset the LOG action button in the main UI
     close();
 }

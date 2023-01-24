@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     logdialog.cpp \
+    logutils.cpp \
     macrodialog.cpp \
     maidenhead.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     alphabet.h \
     logdialog.h \
+    logutils.h \
     macrodialog.h \
     maidenhead.h \
     rpikeyerterm.h \

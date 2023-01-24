@@ -17,7 +17,7 @@ public:
     ~LogDialog();
     void setCurrentValues();
 signals:
-    void logSaved();
+    void logSaved(QString logline);
 
 public slots:
     void setOtherCall(const QString call);

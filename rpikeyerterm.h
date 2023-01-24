@@ -5,10 +5,14 @@
 
 #include "gpiod.hpp"
 #include "logdialog.h"
+#include "logutils.h"
 #include "macrodialog.h"
 
 #include <QCloseEvent>
 #include <QMainWindow>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include <QSettings>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -78,6 +82,7 @@ private slots:
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;
+    logutils lu;
     QTcpServer *server = nullptr;
     QString s_serverAddress = "127.0.0.1";
     int i_serverPort = 9888;
@@ -85,6 +90,8 @@ private:
     int i_clientPort = 9888;
     QTcpSocket *socket = nullptr; // only one!
     QTcpSocket *clientSocket = nullptr; // only one!
+    QTcpSocket *n1mm = nullptr; // for the N1MM logger on 52001
+    QNetworkAccessManager * nam = nullptr;
     QTimer *socketTimer = nullptr;
     QByteArray socketBytes;
     QByteArray clientBytes;
@@ -94,6 +101,8 @@ private:
     QString tokey, keystr;
     QChar keychar, kc;
     bool b_clientMode = false;
+    bool b_n1mmConnected = false;
+    bool b_eQSLEnabled = true; // craetes nam, the QNetworkAccessManager object above
     bool b_keyit = true;
     bool b_killTx = false;
     bool b_doneSending = true;

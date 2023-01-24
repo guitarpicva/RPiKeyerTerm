@@ -12,6 +12,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QNetworkInterface>
+#include <QStringBuilder>
 #include <QThread>
 #include <QDebug>
 
@@ -21,6 +22,7 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
 {
     QDir d(".");
     d.mkdir("logs");
+    qDebug()<<lu.logLineToADIF("2022-12-21,21:24,2022-12-21,21:24,KN4YTA,NC,30,CW,55N,55N,5.0,POTA,");
     ui->setupUi(this);
     // set up the GPIO pin from settings and initialize it and test it
     settings = new QSettings("RPiKeyerTerm.ini", QSettings::IniFormat);
@@ -30,18 +32,45 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     line = gpiod_chip_get_line(chip, GPIO21);
     gpiod_line_request_output(line, "keyline", 0); // set to output direction
     gpiod_line_set_value(line, 0); // ensure low to start, not really needed
-
-//   gpiod_line_set_value(line, 1);
-//    qDebug()<<gpiod_line_get_value(line);
-//    QThread::msleep(1000);
-//    gpiod_line_set_value(line, 0);
-//    qDebug()<<gpiod_line_get_value(line);
-//    QThread::msleep(1000);
-//    gpiod_line_set_value(line, 1);
-//    qDebug()<<gpiod_line_get_value(line);
-//    QThread::msleep(1000);
-//    gpiod_line_set_value(line, 0);
-//    qDebug()<<gpiod_line_get_value(line);
+    // TEST n1mm connection
+    n1mm = new QTcpSocket(this);
+    n1mm->connectToHost("192.168.0.51", 52001);
+    if(n1mm->waitForConnected(15000))
+        b_n1mmConnected = true; // def. false
+    qDebug()<<b_n1mmConnected<<n1mm->state()<<n1mm->errorString();
+    // END TETS n1mm connection
+    // TEST eQSL
+    if(b_eQSLEnabled) {
+        nam = new QNetworkAccessManager(this);
+        //nam->setAutoDeleteReplies(true);
+        connect(nam, &QNetworkAccessManager::finished, this, [=](QNetworkReply *answer){
+            qDebug()<<"eQSL/QRZ finished\n"<<answer->readAll();
+            answer->deleteLater();
+        });
+    }
+    QString payload;
+    if(nam) {
+        payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
+        payload.append(QUrl::toPercentEncoding("<EOH><QSO_DATE:8>20221221<TIME_ON:4>2124<BAND:3>30M<MODE:2>CW<RST_Sent:3>55N<RST_Rcvd:3>55N<TX_PWR:3>5.0<CALL:7>AB4MW-3<NAME:6>GLARRY<GRIDSQUARE:0><COMMENT:4>POTA<EOR>"));
+        payload.append("&eQSL_User=ab4mw&eQSL_Pswd=Mag96!dc");
+        //qDebug()<<"url:"<<payload;
+        //nam->get(QNetworkRequest(QUrl(QUrl::toPercentEncoding(payload))));
+        //nam->get(QNetworkRequest(payload));
+    }
+    // END TEST eQSL
+    // TEST QRZ.com
+    const QString adif = "<QSO_DATE:8>20221221<TIME_ON:4>2124<BAND:3>30M<MODE:2>CW<RST_Sent:3>55N<RST_Rcvd:3>55N<TX_PWR:3>5.0<CALL:7>AB4MW-3<NAME:6>GLARRY<GRIDSQUARE:0><COMMENT:4>POTA<EOR>";
+    const QString APIKey = "KEY=DC9F-CDB0-E424-14FD"; //DC9F-CDB0-E424-14FD
+    const QString action = "&ACTION=INSERT&ADIF=";
+    payload =  APIKey % action % adif;
+    if(nam) {
+        //qDebug()<<payload;
+        QNetworkRequest nr;
+        nr.setUrl(QUrl("https://logbook.qrz.com/api"));
+        nr.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
+        nam->post(nr, QUrl::toPercentEncoding(payload));
+    }
+    // END TEST QRZ.com
 }
 
 RPiKeyerTerm::~RPiKeyerTerm()
@@ -388,7 +417,23 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
     if(checked) {
         if(!ld) {
             ld = new LogDialog(this);
-            connect(ld, &LogDialog::logSaved, this, [=]{ui->actionLOG->setChecked(false);});
+            connect(ld, &LogDialog::logSaved, this, [=](QString logline) {
+                if(logline.isEmpty()) return;
+                ui->actionLOG->setChecked(false);
+                QString adif = lu.logLineToADIF(logline);
+                QFile logout("logs/RPiKeyerTerm.adi");
+                if(logout.open(QFile::ReadWrite | QFile::Append)) {
+                    logout.write(adif.toLatin1());
+                    logout.close();
+                }
+                if(b_n1mmConnected) {
+                    adif.prepend("<command:3>Log<parameters:" % QString::number(adif.length()) % ">");
+                    // if we want to send to N1MM, put this text on the socket
+                    qDebug()<<"adif:"<<adif;
+                    n1mm->write(adif.toLatin1());
+                    n1mm->flush();
+                }
+            });
         }
         ld->setCurrentValues();
         ld->setFrequency(ui->bandComboBox->currentText());
