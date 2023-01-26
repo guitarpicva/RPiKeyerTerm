@@ -230,11 +230,13 @@ void RPiKeyerTerm::loadSettings()
     s_clientHost = settings->value("clientHost", "127.0.0.1").toString();
     i_clientPort = settings->value("clientPort", 9888).toInt();
     restoreGeometry(settings->value("geometry", "").toByteArray());
+    ui->splitter->restoreState(settings->value("splitter").toByteArray());
     restoreState(settings->value("windowState", "").toByteArray());
 }
 
 void RPiKeyerTerm::saveSettings()
 {    
+    settings->setValue("splitter", ui->splitter->saveState());
     settings->setValue("myname", ui->myNameLineEdit->text().trimmed().toUpper());
     settings->setValue("mycall", ui->mycallLineEdit->text().trimmed().toUpper());
     settings->setValue("mygrid", ui->mhGridLineEdit->text().trimmed().toUpper());
@@ -280,11 +282,6 @@ void RPiKeyerTerm::on_actionConfig_triggered()
         connect(md, &MacroDialog::loadMacros, this, &RPiKeyerTerm::loadMacros);
     }
     md->show();
-}
-
-void RPiKeyerTerm::on_receiveTextClearButton_clicked()
-{
-    ui->receiveTextArea->clear();
 }
 
 void RPiKeyerTerm::loadMacros()
@@ -736,4 +733,11 @@ void RPiKeyerTerm::on_mapButton_clicked()
                                                + QString::number(spot.second)
                                            + ",11z"));
     }
+}
+
+void RPiKeyerTerm::on_actionCLEAR_triggered()
+{
+    ui->receiveTextArea->clear();
+    ui->sendTextArea->clear();
+    ui->conversationTextEdit->clear();
 }

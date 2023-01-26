@@ -51,7 +51,6 @@ private slots:
     void on_updateClearButton_clicked();
     void on_sendClearButton_clicked();
     void on_actionConfig_triggered();
-    void on_receiveTextClearButton_clicked();
     void loadMacros();
     void on_sendButton_clicked();
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
@@ -78,6 +77,8 @@ private slots:
     void on_ditDitButton_clicked();
     void on_actionClient_Settings_triggered();
     void on_mapButton_clicked();
+
+    void on_actionCLEAR_triggered();
 
 private:
     Ui::RPiKeyerTerm *ui;
