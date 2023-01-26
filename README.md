@@ -1,5 +1,7 @@
 Readme for RPiKeyerTerm software
 
+![Example image](./RPiKeyerTerm.jpg)
+
 NOTE: See KeyIt.png for an example of a simple transistor switch to use 
 with the radio's CW key line.
 
