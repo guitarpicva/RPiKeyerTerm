@@ -14,8 +14,7 @@ SOURCES += \
     macrodialog.cpp \
     maidenhead.cpp \
     main.cpp \
-    rpikeyerterm.cpp \
-    scrollingdigitlabel.cpp
+    rpikeyerterm.cpp
 
 HEADERS += \
     alphabet.h \
@@ -23,8 +22,7 @@ HEADERS += \
     logutils.h \
     macrodialog.h \
     maidenhead.h \
-    rpikeyerterm.h \
-    scrollingdigitlabel.h
+    rpikeyerterm.h
 
 FORMS += \
     logdialog.ui \
