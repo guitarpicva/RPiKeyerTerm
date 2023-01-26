@@ -41,9 +41,11 @@ RESOURCES += \
 
 DISTFILES += \
     README.md \
-    RPiKeyerTerm.jpg
+    RPiKeyerTerm.png \
+    RPiKeyerTerm.png
 
 unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 
 INCLUDEPATH += $$PWD/../../../../usr/include
 DEPENDPATH += $$PWD/../../../../usr/include
+
