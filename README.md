@@ -2,10 +2,11 @@ Readme for RPiKeyerTerm software
 
 RPiKeyerTerm allows the Raspberry Pi to become a smart keyer by using
 software to store macros and which maintains logging.  Logging also
-includes the ability to send ADIF to both the N1MM logger or to eQSL
-via network connections.  eQSL naturally can only be done when
-connected to the internet, but if N1MM is being used in a local 
-network, then it can aggregate the ADIF log entries for multiple stations.
+includes the ability to send ADIF to the N1MM logger, to eQSL.cc, or
+to QRZ.com (subscription required) via network connections.  QRZ.com
+and eQSL naturally can only be done when connected to the internet, 
+but if N1MM is being used in a local network, then it can aggregate 
+the ADIF log entries for multiple stations.
 
 RPiKeyerTerm uses GPIO to initiate keying to the radio.  The radio is
 configured for straight key operation and a two component keying circuit
