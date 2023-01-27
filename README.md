@@ -1,9 +1,24 @@
 Readme for RPiKeyerTerm software
 
+RPiKeyerTerm allows the Raspberry Pi to become a smart keyer by using
+software to store macros and which maintains logging.  Logging also
+includes the ability to send ADIF to both the N1MM logger or to eQSL
+via network connections.  eQSL naturally can only be done when
+connected to the internet, but if N1MM is being used in a local 
+network, then it can aggregate the ADIF log entries for multiple stations.
+
+RPiKeyerTerm uses GPIO to initiate keying to the radio.  The radio is
+configured for straight key operation and a two component keying circuit
+consisting of a 2N2222 transistor and a 1000 ohm resistor are all that
+are needed for a reliable keyer for most any radio.  A simple circuit
+design is provided in the file Keyit.png.
+
 ![Example image](./RPiKeyerTerm.png)
 
 NOTE: See KeyIt.png for an example of a simple transistor switch to use 
 with the radio's CW key line.
+
+* Build Instructions
 
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
