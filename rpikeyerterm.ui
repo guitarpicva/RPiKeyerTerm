@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>918</width>
-    <height>525</height>
+    <height>498</height>
    </rect>
   </property>
   <property name="font">
@@ -764,7 +764,17 @@
     <addaction name="actionClient_Settings"/>
     <addaction name="actionStart_Client"/>
    </widget>
+   <widget class="QMenu" name="menu_Logging">
+    <property name="title">
+     <string>&amp;Logging</string>
+    </property>
+    <addaction name="actionConfigure_N1MM"/>
+    <addaction name="actionEnable_N1MM"/>
+    <addaction name="actionConfigure_eQSL"/>
+    <addaction name="actionEnable_eQSL"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_Logging"/>
   </widget>
   <widget class="QToolBar" name="macroToolBar">
    <property name="windowTitle">
@@ -1053,6 +1063,32 @@
    </property>
    <property name="toolTip">
     <string>CLEAR all text areas</string>
+   </property>
+  </action>
+  <action name="actionEnable_N1MM">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable N1MM</string>
+   </property>
+  </action>
+  <action name="actionEnable_eQSL">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable eQSL</string>
+   </property>
+  </action>
+  <action name="actionConfigure_N1MM">
+   <property name="text">
+    <string>Configure N1MM</string>
+   </property>
+  </action>
+  <action name="actionConfigure_eQSL">
+   <property name="text">
+    <string>Configure eQSL</string>
    </property>
   </action>
  </widget>

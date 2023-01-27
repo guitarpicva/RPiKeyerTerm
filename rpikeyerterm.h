@@ -77,8 +77,14 @@ private slots:
     void on_ditDitButton_clicked();
     void on_actionClient_Settings_triggered();
     void on_mapButton_clicked();
-
     void on_actionCLEAR_triggered();
+    void on_actionEnable_N1MM_triggered(bool checked);
+
+    void on_actionEnable_eQSL_triggered(bool checked);
+
+    void on_actionConfigure_N1MM_triggered();
+
+    void on_actionConfigure_eQSL_triggered();
 
 private:
     Ui::RPiKeyerTerm *ui;
@@ -102,8 +108,9 @@ private:
     QString tokey, keystr;
     QChar keychar, kc;
     bool b_clientMode = false;
+    bool b_n1mmEnabled = false;
     bool b_n1mmConnected = false;
-    bool b_eQSLEnabled = true; // craetes nam, the QNetworkAccessManager object above
+    bool b_eQSLEnabled = false; // creates nam, the QNetworkAccessManager object above
     bool b_keyit = true;
     bool b_killTx = false;
     bool b_doneSending = true;

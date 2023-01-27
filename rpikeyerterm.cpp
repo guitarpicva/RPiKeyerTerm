@@ -5,7 +5,6 @@
 
 #include <QDesktopServices>
 #include <QDir>
-//#include <QMessageBox>
 #include <QInputDialog>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -21,8 +20,7 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     , ui(new Ui::RPiKeyerTerm)
 {
     QDir d(".");
-    d.mkdir("logs");
-    qDebug()<<lu.logLineToADIF("2022-12-21,21:24,2022-12-21,21:24,KN4YTA,NC,30,CW,55N,55N,5.0,POTA,");
+    d.mkdir("logs"); // create if not exists
     ui->setupUi(this);
     // set up the GPIO pin from settings and initialize it and test it
     settings = new QSettings("RPiKeyerTerm.ini", QSettings::IniFormat);
@@ -33,36 +31,42 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     gpiod_line_request_output(line, "keyline", 0); // set to output direction
     gpiod_line_set_value(line, 0); // ensure low to start, not really needed
     // TEST n1mm connection
-    n1mm = new QTcpSocket(this);
-    n1mm->connectToHost("192.168.0.51", 52001);
-    if(n1mm->waitForConnected(15000))
-        b_n1mmConnected = true; // def. false
-    qDebug()<<b_n1mmConnected<<n1mm->state()<<n1mm->errorString();
+//    if(b_n1mmEnabled) {
+//        n1mm = new QTcpSocket(this);
+//        n1mm->connectToHost("127.0.0.1", 52001);
+//        if(n1mm->waitForConnected(5000))
+//            b_n1mmConnected = true; // def. false
+//        qDebug()<<b_n1mmConnected<<n1mm->state()<<n1mm->errorString();
+//    }
     // END TETS n1mm connection
     // TEST eQSL
-    if(b_eQSLEnabled) {
-        nam = new QNetworkAccessManager(this);
-        //nam->setAutoDeleteReplies(true);
-        connect(nam, &QNetworkAccessManager::finished, this, [=](QNetworkReply *answer){
-            qDebug()<<"eQSL/QRZ finished\n"<<answer->readAll();
-            answer->deleteLater();
-        });
-    }
-    QString payload;
-    if(nam) {
-        payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
-        payload.append(QUrl::toPercentEncoding("<EOH><QSO_DATE:8>20221221<TIME_ON:4>2124<BAND:3>30M<MODE:2>CW<RST_Sent:3>55N<RST_Rcvd:3>55N<TX_PWR:3>5.0<CALL:7>AB4MW-3<NAME:6>GLARRY<GRIDSQUARE:0><COMMENT:4>POTA<EOR>"));
-        payload.append("&eQSL_User=ab4mw&eQSL_Pswd=Mag96!dc");
-        //qDebug()<<"url:"<<payload;
-        //nam->get(QNetworkRequest(QUrl(QUrl::toPercentEncoding(payload))));
-        //nam->get(QNetworkRequest(payload));
-    }
+//    if(b_eQSLEnabled) {
+//        if(!nam) {
+//            nam = new QNetworkAccessManager(this);
+//            //nam->setAutoDeleteReplies(true);
+//            connect(nam, &QNetworkAccessManager::finished, this, [=](QNetworkReply *answer){
+//                qDebug()<<"eQSL/QRZ finished\n"<<answer->readAll();
+//                answer->deleteLater();
+//            }, Qt::UniqueConnection);
+//        }
+////        QString payload;
+////        if(nam) {
+////            payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
+////            payload.append(QUrl::toPercentEncoding("<EOH><QSO_DATE:8>20221221<TIME_ON:4>2124<BAND:3>30M<MODE:2>CW<RST_Sent:3>55N<RST_Rcvd:3>55N<TX_PWR:3>5.0<CALL:7>AB4MW-3<NAME:6>GLARRY<GRIDSQUARE:0><COMMENT:4>POTA<EOR>"));
+////            payload.append("&eQSL_User=ab4mw&eQSL_Pswd=Mag96!dc");
+////            //qDebug()<<"url:"<<payload;
+////            //nam->get(QNetworkRequest(QUrl(QUrl::toPercentEncoding(payload))));
+////            nam->get(QNetworkRequest(payload));
+////        }
+//    }
+
     // END TEST eQSL
+    /*
     // TEST QRZ.com
     const QString adif = "<QSO_DATE:8>20221221<TIME_ON:4>2124<BAND:3>30M<MODE:2>CW<RST_Sent:3>55N<RST_Rcvd:3>55N<TX_PWR:3>5.0<CALL:7>AB4MW-3<NAME:6>GLARRY<GRIDSQUARE:0><COMMENT:4>POTA<EOR>";
     const QString APIKey = "KEY=DC9F-CDB0-E424-14FD"; //DC9F-CDB0-E424-14FD
     const QString action = "&ACTION=INSERT&ADIF=";
-    payload =  APIKey % action % adif;
+    QString payload =  APIKey % action % adif;
     if(nam) {
         //qDebug()<<payload;
         QNetworkRequest nr;
@@ -70,7 +74,7 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
         nr.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
         nam->post(nr, QUrl::toPercentEncoding(payload));
     }
-    // END TEST QRZ.com
+    // END TEST QRZ.com */
 }
 
 RPiKeyerTerm::~RPiKeyerTerm()
@@ -141,7 +145,7 @@ void RPiKeyerTerm::macroTriggered(const int index)
 {
     QString toSend = settings->value("Macros/macro" + QString::number(index) + "Text", "").toString();
     toSend = resolveTextSubstitutions(toSend);
-            qDebug()<<"Macro:"<<index<<toSend;
+    //qDebug()<<"Macro:"<<index<<toSend;
     ui->receiveTextArea->moveCursor(QTextCursor::End);
     ui->sendTextArea->setPlainText(toSend);
     ui->sendTextArea->setFocus();
@@ -216,6 +220,12 @@ void RPiKeyerTerm::on_updateButton_clicked()
 
 void RPiKeyerTerm::loadSettings()
 {
+    b_n1mmEnabled = settings->value("n1mmEnabled", false).toBool();
+    ui->actionEnable_N1MM->setChecked(b_n1mmEnabled);
+    if(b_n1mmEnabled) {on_actionEnable_N1MM_triggered(true);qDebug()<<"start n1mm connection...";}
+    b_eQSLEnabled = settings->value("eQSLEnabled", false).toBool();
+    ui->actionEnable_eQSL->setChecked(b_eQSLEnabled);
+    if(b_eQSLEnabled) on_actionEnable_eQSL_triggered(true);
     ui->myNameLineEdit->setText(settings->value("myname", "NONAME").toString());
     mycall = settings->value("mycall", "N0CALL").toString();
     ui->mycallLineEdit->setText(mycall);
@@ -237,6 +247,8 @@ void RPiKeyerTerm::loadSettings()
 void RPiKeyerTerm::saveSettings()
 {    
     settings->setValue("splitter", ui->splitter->saveState());
+    settings->setValue("n1mmEnabled", ui->actionEnable_N1MM->isChecked());
+    settings->setValue("eQSLEnabled", ui->actionEnable_eQSL->isChecked());
     settings->setValue("myname", ui->myNameLineEdit->text().trimmed().toUpper());
     settings->setValue("mycall", ui->mycallLineEdit->text().trimmed().toUpper());
     settings->setValue("mygrid", ui->mhGridLineEdit->text().trimmed().toUpper());
@@ -423,12 +435,23 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
                     logout.write(adif.toLatin1());
                     logout.close();
                 }
-                if(b_n1mmConnected) {
+                if(b_n1mmEnabled && b_n1mmConnected) {
                     adif.prepend("<command:3>Log<parameters:" % QString::number(adif.length()) % ">");
                     // if we want to send to N1MM, put this text on the socket
-                    qDebug()<<"adif:"<<adif;
+                    //qDebug()<<"adif:"<<adif;
                     n1mm->write(adif.toLatin1());
                     n1mm->flush();
+                }
+                if(b_eQSLEnabled) {
+                    QString payload;
+                    if(nam) {
+                        payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
+                        payload.append(QUrl::toPercentEncoding("<EOH>" + adif));
+                        payload.append("&eQSL_User=" % settings->value("eQSLUser", "").toString() % "&eQSL_Pswd=" %  settings->value("eQSLPswd", "").toString());
+                        //qDebug()<<"url:"<<payload;
+                        nam->get(QNetworkRequest(payload));
+                    }
+                    else qDebug()<<"nam not created...";
                 }
             });
         }
@@ -740,4 +763,68 @@ void RPiKeyerTerm::on_actionCLEAR_triggered()
     ui->receiveTextArea->clear();
     ui->sendTextArea->clear();
     ui->conversationTextEdit->clear();
+}
+
+void RPiKeyerTerm::on_actionEnable_N1MM_triggered(bool checked)
+{
+    if(checked)
+    {
+        b_n1mmEnabled = true;
+        if(!n1mm) n1mm = new QTcpSocket(this);
+
+        const QString ip = settings->value("n1mmIP", "127.0.0.1").toString();
+        const int port = settings->value("n1mmPort", 52001).toInt();
+        n1mm->connectToHost(ip, port);
+        if(n1mm->waitForConnected(5000)) {
+            b_n1mmConnected = true; // def. false
+        }
+        else b_n1mmConnected = false; // turn it off
+    }
+    else {
+        //qDebug()<<"b_n1mmConnected:"<<b_n1mmConnected<<"b_n1mmEnabled:"<<b_n1mmEnabled;
+        b_n1mmConnected = false; // turn it off
+        b_n1mmEnabled = false;
+        if(n1mm) n1mm->disconnectFromHost();
+    }
+}
+
+void RPiKeyerTerm::on_actionEnable_eQSL_triggered(bool checked)
+{
+    b_eQSLEnabled = checked;
+    if(!nam) {
+        nam = new QNetworkAccessManager(this);
+        //nam->setAutoDeleteReplies(true);
+        connect(nam, &QNetworkAccessManager::finished, this, [=](QNetworkReply *answer){
+            //qDebug()<<"eQSL/QRZ finished\n"<<answer->readAll();
+            ui->receiveTextArea->appendHtml(answer->readAll());
+            ui->receiveTextArea->moveCursor(QTextCursor::End);
+            answer->deleteLater();
+        }, Qt::UniqueConnection);
+    }
+}
+
+void RPiKeyerTerm::on_actionConfigure_N1MM_triggered()
+{
+    QString ip = settings->value("n1mmIP", "127.0.0.1").toString();
+    ip = QInputDialog::getText(this, "Set N1MM IP address", "Enter IP Address of N1MM Connection", QLineEdit::Normal, ip);
+    int port = settings->value("n1mmPort", 52001).toInt();
+    if(!ip.isEmpty()) {
+        port = QInputDialog::getInt(this, "TCP Port Number", "Enter TCP Port Number for N1MM", port, 1025, 65535);
+    }
+    //qDebug()<<"n1mm:"<<ip<<port;
+    settings->setValue("n1mmIP", ip);
+    settings->setValue("n1mmPort", port);
+    if(ui->actionEnable_N1MM->isChecked()) on_actionEnable_N1MM_triggered(true);
+}
+
+void RPiKeyerTerm::on_actionConfigure_eQSL_triggered()
+{
+    QString user = settings->value("eQSLUser", "").toString();
+    QString pswd = settings->value("eQSLPswd", "").toString();
+    user = QInputDialog::getText(this, "eQSL Login (callsign)", "Enter the eQSL login id.", QLineEdit::Normal, user).trimmed();
+    if(user.isEmpty()) return;
+    pswd = QInputDialog::getText(this, "eQSL Password", "Enter the eQSL password id.", QLineEdit::Normal, pswd).trimmed();
+    if(pswd.isEmpty()) return;
+    settings->setValue("eQSLUser", user);
+    settings->setValue("eQSLPswd", pswd);
 }
