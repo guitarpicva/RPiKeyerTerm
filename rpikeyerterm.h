@@ -90,6 +90,10 @@ private slots:
 
     void on_actionEnable_QRZ_com_triggered(bool checked);
 
+    void on_actionOpen_Logs_Folder_triggered();
+
+    void on_destGridLineEdit_returnPressed();
+
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;

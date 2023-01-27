@@ -774,6 +774,7 @@
     <addaction name="actionEnable_eQSL"/>
     <addaction name="actionConfigure_QRZ_com"/>
     <addaction name="actionEnable_QRZ_com"/>
+    <addaction name="actionOpen_Logs_Folder"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Logging"/>
@@ -1104,6 +1105,11 @@
    </property>
    <property name="text">
     <string>Enable QRZ.com</string>
+   </property>
+  </action>
+  <action name="actionOpen_Logs_Folder">
+   <property name="text">
+    <string>Open Logs Folder</string>
    </property>
   </action>
  </widget>

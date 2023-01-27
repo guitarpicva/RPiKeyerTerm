@@ -871,3 +871,14 @@ void RPiKeyerTerm::on_actionEnable_QRZ_com_triggered(bool checked)
         }, Qt::UniqueConnection);
     }
 }
+
+void RPiKeyerTerm::on_actionOpen_Logs_Folder_triggered()
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(qApp->applicationDirPath() % "/logs"));
+}
+
+void RPiKeyerTerm::on_destGridLineEdit_returnPressed()
+{
+    //qDebug()<<"return pressed...";
+    on_mapButton_clicked();
+}
