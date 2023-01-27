@@ -772,6 +772,8 @@
     <addaction name="actionEnable_N1MM"/>
     <addaction name="actionConfigure_eQSL"/>
     <addaction name="actionEnable_eQSL"/>
+    <addaction name="actionConfigure_QRZ_com"/>
+    <addaction name="actionEnable_QRZ_com"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Logging"/>
@@ -1089,6 +1091,19 @@
   <action name="actionConfigure_eQSL">
    <property name="text">
     <string>Configure eQSL</string>
+   </property>
+  </action>
+  <action name="actionConfigure_QRZ_com">
+   <property name="text">
+    <string>Configure QRZ.com</string>
+   </property>
+  </action>
+  <action name="actionEnable_QRZ_com">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Enable QRZ.com</string>
    </property>
   </action>
  </widget>

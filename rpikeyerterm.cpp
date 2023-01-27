@@ -14,6 +14,7 @@
 #include <QStringBuilder>
 #include <QThread>
 #include <QDebug>
+#include <QUrlQuery>
 
 RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     : QMainWindow(parent)
@@ -226,6 +227,9 @@ void RPiKeyerTerm::loadSettings()
     b_eQSLEnabled = settings->value("eQSLEnabled", false).toBool();
     ui->actionEnable_eQSL->setChecked(b_eQSLEnabled);
     if(b_eQSLEnabled) on_actionEnable_eQSL_triggered(true);
+    b_QRZEnabled = settings->value("QRZEnabled", false).toBool();
+    ui->actionEnable_QRZ_com->setChecked(b_QRZEnabled);
+    if(b_QRZEnabled) on_actionEnable_QRZ_com_triggered(true);
     ui->myNameLineEdit->setText(settings->value("myname", "NONAME").toString());
     mycall = settings->value("mycall", "N0CALL").toString();
     ui->mycallLineEdit->setText(mycall);
@@ -452,6 +456,21 @@ void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
                         nam->get(QNetworkRequest(payload));
                     }
                     else qDebug()<<"nam not created...";
+                }
+                if(b_QRZEnabled) {
+                    QUrlQuery urlquery;
+                    const QString APIKey = settings->value("QRZKey", "").toString();
+                    urlquery.addQueryItem("KEY", APIKey);
+                    urlquery.addQueryItem("ACTION", "INSERT");
+                    urlquery.addQueryItem("ADIF", adif);
+                    if(nam) {
+                        //qDebug()<<"QRZ:" << payload;
+                        QNetworkRequest nr;
+                        nr.setUrl(QUrl("https://logbook.qrz.com/api"));
+                        nr.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
+                        //nam->post(nr, QUrl::toPercentEncoding(payload));
+                        nam->post(nr, urlquery.toString(QUrl::FullyEncoded).toUtf8());
+                    }
                 }
             });
         }
@@ -827,4 +846,28 @@ void RPiKeyerTerm::on_actionConfigure_eQSL_triggered()
     if(pswd.isEmpty()) return;
     settings->setValue("eQSLUser", user);
     settings->setValue("eQSLPswd", pswd);
+}
+
+void RPiKeyerTerm::on_actionConfigure_QRZ_com_triggered()
+{
+    QString key = settings->value("QRZKey", "").toString();
+    key = QInputDialog::getText(this, "QRZ.com Access Key", "Enter the QRZ.com Access Key.\n\nA subscription is required.", QLineEdit::Normal, key).trimmed();
+    if(key.isEmpty()) return;
+    settings->setValue("QRZKey", key);
+}
+
+void RPiKeyerTerm::on_actionEnable_QRZ_com_triggered(bool checked)
+{
+    b_QRZEnabled = checked;
+    settings->setValue("QRZEnabled", checked);
+    if(!nam) {
+        nam = new QNetworkAccessManager(this);
+        //nam->setAutoDeleteReplies(true);
+        connect(nam, &QNetworkAccessManager::finished, this, [=](QNetworkReply *answer){
+            //qDebug()<<"eQSL/QRZ finished\n"<<answer->readAll();
+            ui->receiveTextArea->appendHtml(answer->readAll());
+            ui->receiveTextArea->moveCursor(QTextCursor::End);
+            answer->deleteLater();
+        }, Qt::UniqueConnection);
+    }
 }

@@ -86,6 +86,10 @@ private slots:
 
     void on_actionConfigure_eQSL_triggered();
 
+    void on_actionConfigure_QRZ_com_triggered();
+
+    void on_actionEnable_QRZ_com_triggered(bool checked);
+
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;
@@ -111,6 +115,7 @@ private:
     bool b_n1mmEnabled = false;
     bool b_n1mmConnected = false;
     bool b_eQSLEnabled = false; // creates nam, the QNetworkAccessManager object above
+    bool b_QRZEnabled = false;
     bool b_keyit = true;
     bool b_killTx = false;
     bool b_doneSending = true;
