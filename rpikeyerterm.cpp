@@ -329,7 +329,7 @@ void RPiKeyerTerm::loadMacros()
 
 void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
 {
-    qDebug()<<"Send Text:"<<socket<<server;
+    qDebug()<<"Send Text: socket"<<socket<<"server:"<<server;
     const int end = tokey.size(); // current size so when we send this doesn't change
     const QString tosend = tokey;
     tokey = tokey.mid(end); // so more can be added
@@ -367,6 +367,7 @@ void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
         int j = 0; // index in keystr
         kc = keystr.at(j); // DIT or DAH
         while (kc != 0x00) {
+//            qDebug()<<"key char:"<<kc;
             if(b_keyit) gpiod_line_set_value(line, 1); // key on
             //gpio_put(LED, 1);
             if(kc == '.') {
