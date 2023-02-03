@@ -15,7 +15,7 @@ are needed for a reliable keyer for most any radio.  A simple circuit
 design is provided in the file RPiKeyerTerm.png.
 
 
-![Example image](./RPiKeyerTerm.png)
+![Example image](./Screenshot.png)
 
 `` Build Instructions
 
