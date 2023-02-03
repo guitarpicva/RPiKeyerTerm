@@ -14,6 +14,7 @@ consisting of a 2N2222 transistor and a 1000 ohm resistor are all that
 are needed for a reliable keyer for most any radio.  A simple circuit
 design is provided in the file RPiKeyerTerm.png.
 
+
 ![Example image](./RPiKeyerTerm.png)
 
 `` Build Instructions
