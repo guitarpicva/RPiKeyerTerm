@@ -17,7 +17,7 @@ design is provided in the file RPiKeyerTerm.png.
 
 ![Example image](./Screenshot.png)
 
-`` Build Instructions
+Build Instructions
 
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
