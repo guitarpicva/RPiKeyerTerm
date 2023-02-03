@@ -253,6 +253,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear the Send text only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Clear</string>
           </property>
@@ -316,6 +319,9 @@
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear the text in the send area only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Clear</string>
@@ -787,6 +793,13 @@
     <addaction name="action_Networking"/>
     <addaction name="action_Macros"/>
    </widget>
+   <widget class="QMenu" name="menu_File_2">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionE_xit"/>
+   </widget>
+   <addaction name="menu_File_2"/>
    <addaction name="menu_File"/>
    <addaction name="menu_Logging"/>
    <addaction name="menu_Help"/>
@@ -1137,6 +1150,11 @@
   <action name="action_Macros">
    <property name="text">
     <string>&amp;Macros</string>
+   </property>
+  </action>
+  <action name="actionE_xit">
+   <property name="text">
+    <string>E&amp;xit</string>
    </property>
   </action>
  </widget>

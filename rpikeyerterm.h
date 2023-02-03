@@ -100,6 +100,8 @@ private slots:
 
     void on_action_Macros_triggered();
 
+    void on_actionE_xit_triggered();
+
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;

@@ -920,3 +920,8 @@ void RPiKeyerTerm::on_action_Macros_triggered()
 "Using the macros makes working sprint, party, *OTA and other contests very efficient and the act of entering the other station's data makes logging a"
 " two button click process.");
 }
+
+void RPiKeyerTerm::on_actionE_xit_triggered()
+{
+    close();
+}
