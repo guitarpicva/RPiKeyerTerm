@@ -94,6 +94,12 @@ private slots:
 
     void on_destGridLineEdit_returnPressed();
 
+    void on_action_Getting_Started_triggered();
+
+    void on_action_Networking_triggered();
+
+    void on_action_Macros_triggered();
+
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;

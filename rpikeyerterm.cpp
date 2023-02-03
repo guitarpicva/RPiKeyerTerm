@@ -15,6 +15,7 @@
 #include <QThread>
 #include <QDebug>
 #include <QUrlQuery>
+#include <QMessageBox>
 
 RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     : QMainWindow(parent)
@@ -329,7 +330,7 @@ void RPiKeyerTerm::loadMacros()
 
 void RPiKeyerTerm::sendText() // send whatever is in the QString tokey
 {
-    qDebug()<<"Send Text: socket"<<socket<<"server:"<<server;
+    //qDebug()<<"Send Text: socket"<<socket<<"server:"<<server;
     const int end = tokey.size(); // current size so when we send this doesn't change
     const QString tosend = tokey;
     tokey = tokey.mid(end); // so more can be added
@@ -882,4 +883,40 @@ void RPiKeyerTerm::on_destGridLineEdit_returnPressed()
 {
     //qDebug()<<"return pressed...";
     on_mapButton_clicked();
+}
+
+void RPiKeyerTerm::on_action_Getting_Started_triggered()
+{
+    QMessageBox::information(this, "Getting Started", "Set 'My Loc', 'My Call' and 'My Name' first. Then set the desired WPM for keying speed.\n\n"
+"Next choose the 'Band' you are working on and record your current 'PWR Out' level.\n\nAs you make or take calls, enter the other station's call sign into the"
+" field next to the 'X' button at the left end of the logging line. As your exchange takes place enter the 'Op Name' and other values as required for logging.\n\n"
+"When you are ready to log the QSO, click the 'LOG' button on the toolbar to view the information and add or change the values.\n\nIf you get the Maidenhead"
+" location for the other station, enter it into the 'Loc' field and press <Enter> or click the 'MAP' button to show an approximate location for the other station"
+" (requires internet connection).\n\n"
+"To send text, type it into the box provided and click the 'SEND' button or use <Ctrl>+<Enter> to send it.  The 'KILL TX' toolbar button may be used to stop the"
+" current transmission.");
+}
+
+void RPiKeyerTerm::on_action_Networking_triggered()
+{
+    QMessageBox::information(this, "Server and Client Networking", "(OPTIONAL!) Networking features allow multiple operator environments"
+" to switch between dedicated station installations for things such as Field Day or other group activations on multiple bands.  Operators"
+" need not move to the other station, they would simply put all stations into 'Server' mode and use 'Client' mode at their own operating position"
+" in order to work the chosen station.\n\n"
+"Server mode allows the user to use a second copy of this program on another Raspberry Pi via a connected network to control keying.\n\n"
+"Choose either 'Server Settings' or 'Client Settings' and once configured, click the corresponding checkbox menu item to enable"
+" the mode selected.\n\nUse Server mode on the"
+" Raspberry Pi which is connected to the radio.\n\nUse Client mode"
+" on the remote Raspberry Pi computer.  Match up the IP address and port numbers on each.");
+}
+
+void RPiKeyerTerm::on_action_Macros_triggered()
+{
+    QMessageBox::information(this, "Creating and Using Macros", "Click the small 'gear' button at the end of the Macro toolbar to open the Macro dialog.\n\nEach macro may contain both static text"
+" and the displayed text substitution values, such as '{CS}', which means the configured station call sign.  This allows the user to build powerful"
+" macros for use in exchanges and contesting.  The text substitution values are taken from the currently displayed values of the station line and"
+" the log line in the main UI.\n\nYou may create a short name for each macro which is displayed on it's button for easy visual reference.  Clicking a macro"
+" button builds the text and replaces the text in the send text area.  Then click the 'SEND' button or <Ctrl>+<Enter> to transmit the displayed text.\n\n"
+"Using the macros makes working sprint, party, *OTA and other contests very efficient and the act of entering the other station's data makes logging a"
+" two button click process.");
 }

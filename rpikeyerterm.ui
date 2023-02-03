@@ -608,6 +608,9 @@
            <bold>true</bold>
           </font>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected other station call sign.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>X</string>
          </property>
@@ -776,8 +779,17 @@
     <addaction name="actionEnable_QRZ_com"/>
     <addaction name="actionOpen_Logs_Folder"/>
    </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_Getting_Started"/>
+    <addaction name="action_Networking"/>
+    <addaction name="action_Macros"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Logging"/>
+   <addaction name="menu_Help"/>
   </widget>
   <widget class="QToolBar" name="macroToolBar">
    <property name="windowTitle">
@@ -1110,6 +1122,21 @@
   <action name="actionOpen_Logs_Folder">
    <property name="text">
     <string>Open Logs Folder</string>
+   </property>
+  </action>
+  <action name="action_Getting_Started">
+   <property name="text">
+    <string>&amp;Getting Started</string>
+   </property>
+  </action>
+  <action name="action_Networking">
+   <property name="text">
+    <string>&amp;Networking</string>
+   </property>
+  </action>
+  <action name="action_Macros">
+   <property name="text">
+    <string>&amp;Macros</string>
    </property>
   </action>
  </widget>

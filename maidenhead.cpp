@@ -41,7 +41,6 @@ QPair<double, double> Maidenhead::mh2ll(const QString mh)
         //qDebug()<<"short version";
         lat = ((double)cc2 - 90) + (double)cc4;
     }
-
     // end latitude calcs
 
     // longitude calcs
@@ -57,7 +56,7 @@ QPair<double, double> Maidenhead::mh2ll(const QString mh)
         cc5 -= 97.0;
         cc5 /= 12.0;
         cc5 += (1.0/24.0);
-        lon = ((double)cc1 + (double) cc3 + cc5) - 180.0;
+        lon = ((double)cc1 + (double)cc3 + cc5) - 180.0;
     }
     else {
         lon = (double)cc1 + (double)cc3 - 180.0;
