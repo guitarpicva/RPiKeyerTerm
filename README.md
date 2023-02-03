@@ -16,10 +16,7 @@ design is provided in the file Keyit.png.
 
 ![Example image](./RPiKeyerTerm.png)
 
-NOTE: See KeyIt.png for an example of a simple transistor switch to use 
-with the radio's CW key line.
-
-* Build Instructions
+`` Build Instructions
 
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
