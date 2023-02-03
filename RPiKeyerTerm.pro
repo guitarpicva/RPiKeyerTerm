@@ -40,7 +40,8 @@ RESOURCES += \
 DISTFILES += \
     README.md \
     RPiKeyerTerm.png \
-    RPiKeyerTerm.png
+    RPiKeyerTerm.png \
+    Screenshot.png
 
 unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 
