@@ -14,6 +14,7 @@ SOURCES += \
     macrodialog.cpp \
     maidenhead.cpp \
     main.cpp \
+    rbndialog.cpp \
     rpikeyerterm.cpp
 
 HEADERS += \
@@ -22,11 +23,13 @@ HEADERS += \
     logutils.h \
     macrodialog.h \
     maidenhead.h \
+    rbndialog.h \
     rpikeyerterm.h
 
 FORMS += \
     logdialog.ui \
     macrodialog.ui \
+    rbndialog.ui \
     rpikeyerterm.ui
 
 # Default rules for deployment.

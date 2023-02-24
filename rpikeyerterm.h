@@ -31,7 +31,8 @@ public:
     RPiKeyerTerm(QWidget *parent = nullptr);
     ~RPiKeyerTerm();
     void closeEvent(QCloseEvent *event);
-
+signals:
+    void bandChanged(const QString band);
 private slots:
     QString resolveTextSubstitutions(QString toSend);
     void macroTriggered(const int index);
@@ -102,6 +103,10 @@ private slots:
 
     void on_actionE_xit_triggered();
 
+    void on_action_RBN_Dialog_triggered();
+
+    void on_bandComboBox_activated(const QString &arg1);
+
 private:
     Ui::RPiKeyerTerm *ui;
     LogDialog *ld = nullptr;
@@ -115,7 +120,7 @@ private:
     QTcpSocket *clientSocket = nullptr; // only one!
     QTcpSocket *n1mm = nullptr; // for the N1MM logger on 52001
     QNetworkAccessManager * nam = nullptr;
-    QTimer *socketTimer = nullptr;
+    QTimer *socketTimer = nullptr;    
     QByteArray socketBytes;
     QByteArray clientBytes;
     MacroDialog *md = nullptr;

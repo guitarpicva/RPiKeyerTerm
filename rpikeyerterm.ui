@@ -799,9 +799,16 @@
     </property>
     <addaction name="actionE_xit"/>
    </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="action_RBN_Dialog"/>
+   </widget>
    <addaction name="menu_File_2"/>
    <addaction name="menu_File"/>
    <addaction name="menu_Logging"/>
+   <addaction name="menu_View"/>
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QToolBar" name="macroToolBar">
@@ -1155,6 +1162,11 @@
   <action name="actionE_xit">
    <property name="text">
     <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="action_RBN_Dialog">
+   <property name="text">
+    <string>&amp;RBN Dialog</string>
    </property>
   </action>
  </widget>

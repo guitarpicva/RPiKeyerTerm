@@ -2,6 +2,7 @@
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
 #include "maidenhead.h"
+#include "rbndialog.h"
 
 #include <QDesktopServices>
 #include <QDir>
@@ -77,6 +78,9 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
         nam->post(nr, QUrl::toPercentEncoding(payload));
     }
     // END TEST QRZ.com */
+    // TEST RBN dialog
+//    on_action_RBN_Dialog_triggered();
+    // END TEST RBN dialog
 }
 
 RPiKeyerTerm::~RPiKeyerTerm()
@@ -924,4 +928,18 @@ void RPiKeyerTerm::on_action_Macros_triggered()
 void RPiKeyerTerm::on_actionE_xit_triggered()
 {
     close();
+}
+
+void RPiKeyerTerm::on_action_RBN_Dialog_triggered()
+{
+    // open a dialog with timer that polls the HamQTH RBN data in JSON periodically
+    RBNDialog *rbn = new RBNDialog(this);
+    connect(this, &RPiKeyerTerm::bandChanged, rbn, &RBNDialog::setBand);
+    rbn->setBand(ui->bandComboBox->currentText());
+    rbn->show();
+}
+
+void RPiKeyerTerm::on_bandComboBox_activated(const QString &arg1)
+{
+    emit bandChanged(arg1);
 }
