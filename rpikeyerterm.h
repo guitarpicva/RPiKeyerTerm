@@ -55,7 +55,7 @@ private slots:
     void loadMacros();
     void on_sendButton_clicked();
     void on_sendingSpeedSpinBox_valueChanged(int arg1);
-    void on_actionLOG_triggered(bool checked);
+    void on_actionLOG_triggered();
     void on_actionKILL_TX_triggered();
     void on_actionTUNE_triggered(bool checked);
     void on_delCallButton_clicked();
@@ -106,6 +106,7 @@ private slots:
     void on_action_RBN_Dialog_triggered();
 
     void on_bandComboBox_activated(const QString &arg1);
+
 
 private:
     Ui::RPiKeyerTerm *ui;

@@ -430,67 +430,66 @@ void RPiKeyerTerm::on_sendingSpeedSpinBox_valueChanged(int arg1)
     }
 }
 
-void RPiKeyerTerm::on_actionLOG_triggered(bool checked)
+void RPiKeyerTerm::on_actionLOG_triggered()
 {
     // do log dialog
-    if(checked) {
-        if(!ld) {
-            ld = new LogDialog(this);
-            connect(ld, &LogDialog::logSaved, this, [=](QString logline) {
-                if(logline.isEmpty()) return;
-                ui->actionLOG->setChecked(false);
-                QString adif = lu.logLineToADIF(logline);
-                QFile logout("logs/RPiKeyerTerm.adi");
-                if(logout.open(QFile::ReadWrite | QFile::Append)) {
-                    logout.write(adif.toLatin1());
-                    logout.close();
+    if(!ld) {
+        ld = new LogDialog(this);
+        connect(ld, &LogDialog::logSaved, this, [=](QString logline) {
+            if(logline.isEmpty()) return;
+            ui->actionLOG->setChecked(false);
+            QString adif = lu.logLineToADIF(logline);
+            QFile logout("logs/RPiKeyerTerm.adi");
+            if(logout.open(QFile::ReadWrite | QFile::Append)) {
+                logout.write(adif.toLatin1());
+                logout.close();
+            }
+            if(b_n1mmEnabled && b_n1mmConnected) {
+                adif.prepend("<command:3>Log<parameters:" % QString::number(adif.length()) % ">");
+                // if we want to send to N1MM, put this text on the socket
+                //qDebug()<<"adif:"<<adif;
+                n1mm->write(adif.toLatin1());
+                n1mm->flush();
+            }
+            if(b_eQSLEnabled) {
+                QString payload;
+                if(nam) {
+                    payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
+                    payload.append(QUrl::toPercentEncoding("<EOH>" + adif));
+                    payload.append("&eQSL_User=" % settings->value("eQSLUser", "").toString() % "&eQSL_Pswd=" %  settings->value("eQSLPswd", "").toString());
+                    //qDebug()<<"url:"<<payload;
+                    nam->get(QNetworkRequest(payload));
                 }
-                if(b_n1mmEnabled && b_n1mmConnected) {
-                    adif.prepend("<command:3>Log<parameters:" % QString::number(adif.length()) % ">");
-                    // if we want to send to N1MM, put this text on the socket
-                    //qDebug()<<"adif:"<<adif;
-                    n1mm->write(adif.toLatin1());
-                    n1mm->flush();
+                else qDebug()<<"nam not created...";
+            }
+            if(b_QRZEnabled) {
+                QUrlQuery urlquery;
+                const QString APIKey = settings->value("QRZKey", "").toString();
+                urlquery.addQueryItem("KEY", APIKey);
+                urlquery.addQueryItem("ACTION", "INSERT");
+                urlquery.addQueryItem("ADIF", adif);
+                if(nam) {
+                    //qDebug()<<"QRZ:" << payload;
+                    QNetworkRequest nr;
+                    nr.setUrl(QUrl("https://logbook.qrz.com/api"));
+                    nr.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
+                    //nam->post(nr, QUrl::toPercentEncoding(payload));
+                    nam->post(nr, urlquery.toString(QUrl::FullyEncoded).toUtf8());
                 }
-                if(b_eQSLEnabled) {
-                    QString payload;
-                    if(nam) {
-                        payload = "https://www.eQSL.cc/qslcard/ImportADIF.cfm?ADIFData=Upload";
-                        payload.append(QUrl::toPercentEncoding("<EOH>" + adif));
-                        payload.append("&eQSL_User=" % settings->value("eQSLUser", "").toString() % "&eQSL_Pswd=" %  settings->value("eQSLPswd", "").toString());
-                        //qDebug()<<"url:"<<payload;
-                        nam->get(QNetworkRequest(payload));
-                    }
-                    else qDebug()<<"nam not created...";
-                }
-                if(b_QRZEnabled) {
-                    QUrlQuery urlquery;
-                    const QString APIKey = settings->value("QRZKey", "").toString();
-                    urlquery.addQueryItem("KEY", APIKey);
-                    urlquery.addQueryItem("ACTION", "INSERT");
-                    urlquery.addQueryItem("ADIF", adif);
-                    if(nam) {
-                        //qDebug()<<"QRZ:" << payload;
-                        QNetworkRequest nr;
-                        nr.setUrl(QUrl("https://logbook.qrz.com/api"));
-                        nr.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
-                        //nam->post(nr, QUrl::toPercentEncoding(payload));
-                        nam->post(nr, urlquery.toString(QUrl::FullyEncoded).toUtf8());
-                    }
-                }
-            });
-        }
-        ld->setCurrentValues();
-        ld->setFrequency(ui->bandComboBox->currentText());
-        ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
-        ld->setOpName(ui->opNameLineEdit->text().trimmed());
-        ld->setPower(ui->pwrSpinBox->value());
-        ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
-        ld->setRemoteLoc(ui->destGridLineEdit->text().trimmed());
-        ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
-        ld->show();
-        ld->raise();
+            }
+        });
     }
+    ld->setCurrentValues();
+    ld->setFrequency(ui->bandComboBox->currentText());
+    ld->setOtherCall(ui->heardListComboBox->currentText().trimmed());
+    ld->setOpName(ui->opNameLineEdit->text().trimmed());
+    ld->setPower(ui->pwrSpinBox->value());
+    ld->setRecdReport(ui->rstInLineEdit->text().trimmed());
+    ld->setRemoteLoc(ui->destGridLineEdit->text().trimmed());
+    ld->setSentReport(ui->rstOutLineEdit->text().trimmed());
+    ld->show();
+    ld->raise();
+
 }
 
 void RPiKeyerTerm::on_actionKILL_TX_triggered()
