@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,7 +18,11 @@ SOURCES += \
     rpikeyerterm.cpp
 
 HEADERS += \
+    FIRFilterLib_global.h \
     alphabet.h \
+    firbpfilter.h \
+    firfilterlib.h \
+    firfilterwidget.h \
     logdialog.h \
     logutils.h \
     macrodialog.h \
@@ -51,3 +55,5 @@ unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 INCLUDEPATH += $$PWD/../../../../usr/include
 DEPENDPATH += $$PWD/../../../../usr/include
 
+
+unix:!macx: LIBS += -lFIRFilterLib

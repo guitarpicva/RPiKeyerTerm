@@ -1,6 +1,7 @@
 #include "rpikeyerterm.h"
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
+#include "firfilterlib.h"
 #include "maidenhead.h"
 #include "rbndialog.h"
 
@@ -33,6 +34,15 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     line = gpiod_chip_get_line(chip, GPIO21);
     gpiod_line_request_output(line, "keyline", 0); // set to output direction
     gpiod_line_set_value(line, 0); // ensure low to start, not really needed
+    // Set up the audio BP filter widget
+    dw = new QDockWidget(this);
+    dw->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
+    dw->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
+    FIRFilterLib ff;
+    FIRFilterWidget *ffw = ff.createFIRFilterWidget();
+    dw->setWidget(ffw);
+    this->addDockWidget(Qt::BottomDockWidgetArea, dw);
+    dw->setVisible(b_firFilterEnabled);
     // TEST n1mm connection
 //    if(b_n1mmEnabled) {
 //        n1mm = new QTcpSocket(this);
@@ -226,6 +236,11 @@ void RPiKeyerTerm::on_updateButton_clicked()
 
 void RPiKeyerTerm::loadSettings()
 {
+    b_firFilterEnabled = settings->value("firFilterEnabled", false).toBool();
+    ui->actionShow_FIR_BP_Filter->setChecked(b_firFilterEnabled);
+    if(dw) {
+        dw->setVisible(b_firFilterEnabled);
+    }
     b_n1mmEnabled = settings->value("n1mmEnabled", false).toBool();
     ui->actionEnable_N1MM->setChecked(b_n1mmEnabled);
     if(b_n1mmEnabled) {on_actionEnable_N1MM_triggered(true);qDebug()<<"start n1mm connection...";}
@@ -257,6 +272,9 @@ void RPiKeyerTerm::saveSettings()
 {    
     settings->setValue("splitter", ui->splitter->saveState());
     settings->setValue("n1mmEnabled", ui->actionEnable_N1MM->isChecked());
+    if(dw) {
+        settings->setValue("firFilterEnabled", dw->isVisible());
+    }
     settings->setValue("eQSLEnabled", ui->actionEnable_eQSL->isChecked());
     settings->setValue("myname", ui->myNameLineEdit->text().trimmed().toUpper());
     settings->setValue("mycall", ui->mycallLineEdit->text().trimmed().toUpper());
@@ -941,4 +959,11 @@ void RPiKeyerTerm::on_action_RBN_Dialog_triggered()
 void RPiKeyerTerm::on_bandComboBox_activated(const QString &arg1)
 {
     emit bandChanged(arg1);
+}
+
+void RPiKeyerTerm::on_actionShow_FIR_BP_Filter_triggered(bool checked)
+{
+    if(dw) {
+        dw->setVisible(checked);
+    }
 }

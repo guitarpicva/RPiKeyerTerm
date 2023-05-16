@@ -804,6 +804,7 @@
      <string>&amp;View</string>
     </property>
     <addaction name="action_RBN_Dialog"/>
+    <addaction name="actionShow_FIR_BP_Filter"/>
    </widget>
    <addaction name="menu_File_2"/>
    <addaction name="menu_File"/>
@@ -1167,6 +1168,17 @@
   <action name="action_RBN_Dialog">
    <property name="text">
     <string>&amp;RBN Dialog</string>
+   </property>
+  </action>
+  <action name="actionShow_FIR_BP_Filter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show FIR BP Filter</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

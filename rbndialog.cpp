@@ -18,8 +18,6 @@ RBNDialog::RBNDialog(QWidget *parent) :
             this, &RBNDialog::replyFinished);
 
     manager->get(QNetworkRequest(QUrl("https://www.hamqth.com/rbn_data.php?data=1&mode=CW&waz=*&itu=*&age=30&order=3&band=" + s_band)));
-
-
 }
 
 RBNDialog::~RBNDialog()
@@ -41,7 +39,7 @@ void RBNDialog::replyFinished(QNetworkReply *reply)
 
     for(int i = 0; i < ui->rbnTableWidget->rowCount(); i++) ui->rbnTableWidget->removeRow(0);
     QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
-//    qDebug()<<"JSON:"<<doc.toJson();
+    //qDebug()<<"JSON:"<<doc.toJson();
     QJsonObject obj = doc.object();
     QVariantMap map = obj.toVariantMap();
 

@@ -9,6 +9,7 @@
 #include "macrodialog.h"
 
 #include <QCloseEvent>
+#include <QDockWidget>
 #include <QMainWindow>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -108,8 +109,11 @@ private slots:
     void on_bandComboBox_activated(const QString &arg1);
 
 
+    void on_actionShow_FIR_BP_Filter_triggered(bool checked);
+
 private:
     Ui::RPiKeyerTerm *ui;
+    QDockWidget * dw = nullptr;
     LogDialog *ld = nullptr;
     logutils lu;
     QTcpServer *server = nullptr;
@@ -132,6 +136,7 @@ private:
     bool b_clientMode = false;
     bool b_n1mmEnabled = false;
     bool b_n1mmConnected = false;
+    bool b_firFilterEnabled = false;
     bool b_eQSLEnabled = false; // creates nam, the QNetworkAccessManager object above
     bool b_QRZEnabled = false;
     bool b_keyit = true;
