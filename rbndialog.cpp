@@ -14,8 +14,7 @@ RBNDialog::RBNDialog(QWidget *parent) :
     // set up the table widget
 
     manager = new QNetworkAccessManager(this);
-    connect(manager, &QNetworkAccessManager::finished,
-            this, &RBNDialog::replyFinished);
+    connect(manager, &QNetworkAccessManager::finished, this, &RBNDialog::replyFinished);
 
     manager->get(QNetworkRequest(QUrl("https://www.hamqth.com/rbn_data.php?data=1&mode=CW&waz=*&itu=*&age=30&order=3&band=" + s_band)));
 }
@@ -62,7 +61,7 @@ void RBNDialog::replyFinished(QNetworkReply *reply)
         QString out = "<p><pre>" + dxcall;
         out.append(" " + freq);
         out.append(" " + age + "</pre></p>");
-        qDebug()<<"list keys:"<<dxcall<<freq<<age;
+        //qDebug()<<"list keys:"<<dxcall<<freq<<age;
         //ui->rbnTextEdit->appendHtml(out);
         ui->rbnTableWidget->insertRow(i);
         ui->rbnTableWidget->setItem(i, 0, new QTableWidgetItem(dxcall));
@@ -70,7 +69,7 @@ void RBNDialog::replyFinished(QNetworkReply *reply)
         while(age.length() < 2) age.prepend('0');
         ui->rbnTableWidget->setItem(i, 2, new QTableWidgetItem(age));
         ui->rbnTableWidget->sortByColumn(2, Qt::AscendingOrder);
-        qDebug()<<"end record";
+        //qDebug()<<"end record";
         ++i;
     }
 }

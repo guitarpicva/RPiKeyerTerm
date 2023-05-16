@@ -3,6 +3,9 @@
 
 #define GPIO21 21u
 
+#include "firfilterlib.h"
+#include "firfilterwidget.h"
+#include "FIRFilterLib_global.h"
 #include "gpiod.hpp"
 #include "logdialog.h"
 #include "logutils.h"
@@ -81,38 +84,24 @@ private slots:
     void on_mapButton_clicked();
     void on_actionCLEAR_triggered();
     void on_actionEnable_N1MM_triggered(bool checked);
-
     void on_actionEnable_eQSL_triggered(bool checked);
-
     void on_actionConfigure_N1MM_triggered();
-
     void on_actionConfigure_eQSL_triggered();
-
     void on_actionConfigure_QRZ_com_triggered();
-
     void on_actionEnable_QRZ_com_triggered(bool checked);
-
     void on_actionOpen_Logs_Folder_triggered();
-
     void on_destGridLineEdit_returnPressed();
-
     void on_action_Getting_Started_triggered();
-
     void on_action_Networking_triggered();
-
     void on_action_Macros_triggered();
-
     void on_actionE_xit_triggered();
-
     void on_action_RBN_Dialog_triggered();
-
     void on_bandComboBox_activated(const QString &arg1);
-
-
     void on_actionShow_FIR_BP_Filter_triggered(bool checked);
 
 private:
     Ui::RPiKeyerTerm *ui;
+    FIRFilterWidget * ffw = nullptr;
     QDockWidget * dw = nullptr;
     LogDialog *ld = nullptr;
     logutils lu;

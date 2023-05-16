@@ -1,7 +1,6 @@
 #include "rpikeyerterm.h"
 #include "ui_rpikeyerterm.h"
 #include "alphabet.h"
-#include "firfilterlib.h"
 #include "maidenhead.h"
 #include "rbndialog.h"
 
@@ -39,7 +38,7 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     dw->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
     dw->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
     FIRFilterLib ff;
-    FIRFilterWidget *ffw = ff.createFIRFilterWidget();
+    ffw = ff.createFIRFilterWidget();
     dw->setWidget(ffw);
     this->addDockWidget(Qt::BottomDockWidgetArea, dw);
     dw->setVisible(b_firFilterEnabled);
