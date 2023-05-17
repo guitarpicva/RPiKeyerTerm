@@ -55,5 +55,7 @@ unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 INCLUDEPATH += $$PWD/../../../../usr/include
 DEPENDPATH += $$PWD/../../../../usr/include
 
+unix:!macx: LIBS += -L$$PWD/../RPiKeyerTerm -lFIRFilterLib
 
-unix:!macx: LIBS += -lFIRFilterLib
+INCLUDEPATH += $$PWD/../
+DEPENDPATH += $$PWD/../

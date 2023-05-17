@@ -23,7 +23,7 @@ Build Instructions
 REQUIRED LIBRARIES IN Raspberry Pi OS to run OR to build from source.
 
 ````
-sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase5-dev
+sudo apt install gpiod libgpiod-dev libgpiod-doc qtbase5-dev qtmultimedia5-dev
 ````
 
 To build from source:
@@ -35,6 +35,7 @@ git clone https://github.com/guitarpicva/RPiKeyerTerm.git
 cd RPiKeyerTerm
 mkdir build
 cd build
+cp ../libFIRFilterLib* .
 qmake ..
 make -j4
 ````
