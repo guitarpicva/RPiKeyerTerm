@@ -35,6 +35,8 @@ RPiKeyerTerm::RPiKeyerTerm(QWidget *parent)
     gpiod_line_set_value(line, 0); // ensure low to start, not really needed
     // Set up the audio BP filter widget
     dw = new QDockWidget(this);
+    dw->setObjectName("FIR_BP_Filter");
+    dw->setWindowTitle("FIR BP Filter");
     dw->setAllowedAreas(Qt::BottomDockWidgetArea | Qt::TopDockWidgetArea);
     dw->setFeatures(QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetMovable);
     FIRFilterLib ff;
