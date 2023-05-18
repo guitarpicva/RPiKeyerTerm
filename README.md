@@ -45,7 +45,7 @@ From the "build" folder, create an application installation area:
 ````
 mkdir ~/RPiKeyerTerm
 cp RPiKeyerTerm ~/RPiKeyerTerm
-cd ~/RPiKeyerTerm
+cd ~
 touch RPiKeyerTerm.sh
 chmod +x RPiKeyerTerm.sh
 nano RPiKeyerTerm.sh
