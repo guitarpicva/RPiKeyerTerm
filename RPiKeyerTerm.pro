@@ -36,19 +36,8 @@ FORMS += \
     rbndialog.ui \
     rpikeyerterm.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 RESOURCES += \
     qresource.qrc
-
-DISTFILES += \
-    README.md \
-    RPiKeyerTerm.png \
-    RPiKeyerTerm.png \
-    Screenshot.png
 
 unix:!macx: LIBS += -L$$PWD/../../../../usr/lib/aarch64-linux-gnu/ -lgpiod
 
@@ -57,5 +46,20 @@ DEPENDPATH += $$PWD/../../../../usr/include
 
 unix:!macx: LIBS += -L$$PWD/../RPiKeyerTerm -lFIRFilterLib
 
-INCLUDEPATH += $$PWD/../
-DEPENDPATH += $$PWD/../
+#INCLUDEPATH += $$PWD/../
+#DEPENDPATH += $$PWD/../
+
+message(TARGET: $$TARGET)
+message(PWD value: $$PWD)
+message(OUT_PWD: $$OUT_PWD)
+DESTFOLDER = $$(HOME)/RPiKeyerTerm
+message(Destination base folder: $$DESTFOLDER)
+
+installation.path = $$DESTFOLDER
+installation.files = $$OUT_PWD/RPiKeyerTerm $$PWD/RPiKeyerTerm.sh $$PWD/libFIRFilterLib.so.1.0.0
+
+# once all files are in place adjust their permissions and create symlinks
+postinstall.path = $$DESTFOLDER
+unix:postinstall.extra = chmod +x $$DESTFOLDER/RPiKeyerTerm.sh;ln -s $$DESTFOLDER/libFIRFilterLib.so.1.0.0 $$DESTFOLDER/libFIRFilterLib.so.1.0;ln -s $$DESTFOLDER/libFIRFilterLib.so.1.0.0 $$DESTFOLDER/libFIRFilterLib.so.1;ln -s $$DESTFOLDER/libFIRFilterLib.so.1.0.0 $$DESTFOLDER/libFIRFilterLib.so
+
+INSTALLS += installation postinstall
