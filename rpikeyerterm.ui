@@ -784,6 +784,7 @@
     <addaction name="actionConfigure_QRZ_com"/>
     <addaction name="actionEnable_QRZ_com"/>
     <addaction name="actionOpen_Logs_Folder"/>
+    <addaction name="actionConvert_RPKT_Log_to_ADIF"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -1179,6 +1180,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionConvert_RPKT_Log_to_ADIF">
+   <property name="text">
+    <string>Convert RPKT Log to ADIF</string>
    </property>
   </action>
  </widget>

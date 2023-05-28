@@ -99,6 +99,8 @@ private slots:
     void on_bandComboBox_activated(const QString &arg1);
     void on_actionShow_FIR_BP_Filter_triggered(bool checked);
 
+    void on_actionConvert_RPKT_Log_to_ADIF_triggered();
+
 private:
     Ui::RPiKeyerTerm *ui;
     FIRFilterWidget * ffw = nullptr;
