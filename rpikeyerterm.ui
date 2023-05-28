@@ -805,6 +805,9 @@
      <string>&amp;View</string>
     </property>
     <addaction name="action_RBN_Dialog"/>
+    <addaction name="actionLaunch_POTA_app"/>
+    <addaction name="actionLaunch_SOTAWatch"/>
+    <addaction name="actionLaunch_IOTAMaps"/>
     <addaction name="actionShow_FIR_BP_Filter"/>
    </widget>
    <addaction name="menu_File_2"/>
@@ -1185,6 +1188,21 @@
   <action name="actionConvert_RPKT_Log_to_ADIF">
    <property name="text">
     <string>Convert RPKT Log to ADIF</string>
+   </property>
+  </action>
+  <action name="actionLaunch_POTA_app">
+   <property name="text">
+    <string>Launch POTA.app</string>
+   </property>
+  </action>
+  <action name="actionLaunch_SOTAWatch">
+   <property name="text">
+    <string>Launch SOTAWatch</string>
+   </property>
+  </action>
+  <action name="actionLaunch_IOTAMaps">
+   <property name="text">
+    <string>Launch IOTAMaps</string>
    </property>
   </action>
  </widget>

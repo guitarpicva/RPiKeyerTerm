@@ -994,3 +994,18 @@ void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
         qDebug()<<"Unable to open log .adi file.";
     }
 }
+
+void RPiKeyerTerm::on_actionLaunch_POTA_app_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://pota.app"));
+}
+
+void RPiKeyerTerm::on_actionLaunch_SOTAWatch_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://sotawatch.sota.org.uk"));
+}
+
+void RPiKeyerTerm::on_actionLaunch_IOTAMaps_triggered()
+{
+    QDesktopServices::openUrl(QUrl("https://www.iota-world.org/iotamaps"));
+}

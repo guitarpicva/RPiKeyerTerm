@@ -101,6 +101,12 @@ private slots:
 
     void on_actionConvert_RPKT_Log_to_ADIF_triggered();
 
+    void on_actionLaunch_POTA_app_triggered();
+
+    void on_actionLaunch_SOTAWatch_triggered();
+
+    void on_actionLaunch_IOTAMaps_triggered();
+
 private:
     Ui::RPiKeyerTerm *ui;
     FIRFilterWidget * ffw = nullptr;
