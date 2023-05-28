@@ -973,18 +973,20 @@ void RPiKeyerTerm::on_actionShow_FIR_BP_Filter_triggered(bool checked)
 void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
 {
     const QString fname = QFileDialog::getOpenFileName(this, "Choose RPI Keyer Term Log File", "Select the RPiKeyerTerm .log file to convert to ADIF", "*.log" );
-    //qDebug()<<"log file:"<<fname;
+    qDebug()<<"log file:"<<fname;
     QFile f(fname);
     f.open(QFile::ReadOnly);
     QString lineses = f.readAll();
     f.close();
-    const QStringList lines = lineses.split("\n");
-    foreach(QString logline, lines) {
-        if(logline.trimmed().isEmpty())
-            continue;
-        const QString adif = lu.logLineToADIF(logline.trimmed());
-        QFile logout("logs/RPiKeyerTerm.adi");
-        if(logout.open(QFile::ReadWrite | QFile::Append)) {
+    qDebug()<<"lineses:"<<lineses;
+    QFile logout("logs/RPiKeyerTerm.adi");
+    if(logout.open(QFile::ReadWrite | QFile::Append)) {
+        const QStringList lines = lineses.split("\n");
+        foreach(QString logline, lines) {
+            if(logline.trimmed().isEmpty())
+                continue;
+            const QString adif = lu.logLineToADIF(logline.trimmed());
+
             logout.write(adif.toLatin1());
             logout.close();
         }
