@@ -30,6 +30,8 @@ private slots:
     void replyFinished(QNetworkReply *reply);
     void on_rbnRefreshButton_clicked();
 
+    void on_label_linkHovered(const QString &link);
+
 private:
     Ui::RBNDialog *ui;
     QJsonDocument *rbnDoc = nullptr;

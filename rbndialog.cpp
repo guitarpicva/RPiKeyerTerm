@@ -10,12 +10,8 @@ RBNDialog::RBNDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setAttribute(Qt::WA_DeleteOnClose, true);
-
-    // set up the table widget
-
     manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished, this, &RBNDialog::replyFinished);
-
     manager->get(QNetworkRequest(QUrl("https://www.hamqth.com/rbn_data.php?data=1&mode=CW&waz=*&itu=*&age=30&order=3&band=" + s_band)));
 }
 
@@ -32,7 +28,7 @@ void RBNDialog::setBand(const QString band)
 
 void RBNDialog::replyFinished(QNetworkReply *reply)
 {
-//    qDebug()<<reply->readAll();
+    //qDebug()<<reply->readAll();
     ui->rbnTableWidget->clear();
     ui->rbnTableWidget->setHorizontalHeaderLabels(headerList);
 
@@ -77,4 +73,9 @@ void RBNDialog::replyFinished(QNetworkReply *reply)
 void RBNDialog::on_rbnRefreshButton_clicked()
 {
     manager->get(QNetworkRequest(QUrl("https://www.hamqth.com/rbn_data.php?data=1&mode=CW&waz=*&itu=*&age=30&order=3&band=" + s_band)));
+}
+
+void RBNDialog::on_label_linkHovered(const QString &link)
+{
+    setToolTip(link);
 }

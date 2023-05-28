@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>325</width>
+    <width>344</width>
     <height>480</height>
    </rect>
   </property>
@@ -51,7 +51,7 @@
      </attribute>
      <column>
       <property name="text">
-       <string notr="true">DX CALL</string>
+       <string notr="true">DX Call</string>
       </property>
       <property name="toolTip">
        <string notr="true"/>
@@ -62,7 +62,7 @@
      </column>
      <column>
       <property name="text">
-       <string notr="true">FREQ</string>
+       <string notr="true">Frequency</string>
       </property>
       <property name="toolTip">
        <string notr="true"/>
@@ -73,7 +73,7 @@
      </column>
      <column>
       <property name="text">
-       <string notr="true">AGE</string>
+       <string notr="true">Age Min.</string>
       </property>
       <property name="toolTip">
        <string notr="true"/>
@@ -91,13 +91,26 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feed Courtesy &lt;a href=https://www.hamqth.com/dxcluster.php#rbn&gt;HAMQth.com&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>5</width>
           <height>20</height>
          </size>
         </property>
