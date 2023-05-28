@@ -988,8 +988,8 @@ void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
             const QString adif = lu.logLineToADIF(logline.trimmed());
 
             logout.write(adif.toLatin1());
-            logout.close();
         }
+        logout.close();
     }
     else {
         qDebug()<<"Unable to open log .adi file.";
