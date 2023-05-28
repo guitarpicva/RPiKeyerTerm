@@ -979,8 +979,8 @@ void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
     QString lineses = f.readAll();
     f.close();
     qDebug()<<"lineses:"<<lineses;
-    QFile logout("logs/RPiKeyerTerm.adi");
-    if(logout.open(QFile::ReadWrite | QFile::Append)) {
+    QFile logout("./logs/RPiKeyerTerm.adi");
+    if(logout.open(QFile::WriteOnly | QFile::Append)) {
         const QStringList lines = lineses.split("\n");
         foreach(QString logline, lines) {
             if(logline.trimmed().isEmpty())
@@ -991,4 +991,5 @@ void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
             logout.close();
         }
     }
+
 }
