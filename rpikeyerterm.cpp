@@ -985,7 +985,7 @@ void RPiKeyerTerm::on_actionConvert_RPKT_Log_to_ADIF_triggered()
         foreach(QString logline, lines) {
             if(logline.trimmed().isEmpty())
                 continue;
-            const QString adif = lu.logLineToADIF(logline.trimmed());
+            const QString adif = lu.logLineToADIF(logline.trimmed() + "\n");
 
             logout.write(adif.toLatin1());
         }
