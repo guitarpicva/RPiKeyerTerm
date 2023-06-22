@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>344</width>
-    <height>480</height>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,9 @@
      </property>
      <property name="cornerButtonEnabled">
       <bool>false</bool>
+     </property>
+     <property name="rowCount">
+      <number>0</number>
      </property>
      <attribute name="horizontalHeaderStretchLastSection">
       <bool>true</bool>
@@ -73,7 +76,7 @@
      </column>
      <column>
       <property name="text">
-       <string notr="true">Age Min.</string>
+       <string notr="true">WPM</string>
       </property>
       <property name="toolTip">
        <string notr="true"/>
@@ -93,7 +96,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feed Courtesy &lt;a href=https://www.hamqth.com/dxcluster.php#rbn&gt;HAMQth.com&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Feed Courtesy &lt;a href=https://www.reversebeacon.net&gt;The RBN&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="openExternalLinks">
          <bool>true</bool>

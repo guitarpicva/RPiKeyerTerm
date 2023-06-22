@@ -36,8 +36,23 @@ private:
     Ui::RBNDialog *ui;
     QJsonDocument *rbnDoc = nullptr;
     QNetworkAccessManager *manager = nullptr;
-    QStringList headerList = QStringList()<<"DX Call"<<"Frequency"<<"Age Min.";
+    QStringList headerList = QStringList()<<"DX Call"<<"Frequency"<<"WPM";
     QString s_band = "30";
+    QHash<QString, QString> band2num = {
+        {"160","3"},
+        {"80", "7"},
+        {"60", "84"},
+        {"40", "12"},
+        {"30", "17"},
+        {"20", "22"},
+        {"17", "27"},
+        {"15", "32"},
+        {"12", "37"},
+        {"10", "42"},
+        {"6", "50"},
+        {"4", "55"},
+        {"2", "62"}
+                                       };
 };
 
 #endif // RBNDIALOG_H
