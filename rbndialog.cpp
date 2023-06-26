@@ -27,7 +27,7 @@ void RBNDialog::setBand(const QString band)
 {
     // need to resolve the band number from the band name here
     s_band = band2num.value(band);
-    qDebug()<<"set band:"<<s_band<<band;
+    //qDebug()<<"set band:"<<s_band<<band;
     on_rbnRefreshButton_clicked(); // get the new data
 }
 

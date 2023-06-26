@@ -679,7 +679,7 @@
           <bool>false</bool>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <item>
           <property name="text">
@@ -734,6 +734,11 @@
          <item>
           <property name="text">
            <string>6</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
           </property>
          </item>
          <item>
