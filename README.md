@@ -25,7 +25,7 @@ If you do not wish to use the audio filter, show it from the view menu
 and ensure that the widget's checkbox at it's top left position is
 unchecked, and then hide it again with the View menu.
 
-![Screen shot](./Screenshot.png)
+![Screen shot](./RpiKeyerTerm.png)
 
 RPiKeyerTerm uses GPIO to initiate keying to the radio.  The radio is
 configured for straight key operation and a two component keying circuit
@@ -33,7 +33,7 @@ consisting of a 2N2222 transistor and a 1000 ohm resistor are all that
 are needed for a reliable keyer for most any radio.  A simple circuit
 design is provided in the file RPiKeyerTerm.png.
 
-![Example image](./RPiKeyerTerm.png)
+![Example image](./KeyCircuit.png)
 
 Build Instructions
 
